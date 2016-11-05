@@ -57,6 +57,7 @@ public class IndexBean extends Bean {
 		}
 		ArrayList<AGoods> agoods = new ArrayList<AGoods>();
 		Data data = new Data();
+		//data.add();
 		data.getAllGoods(agoods);
 		String userid = login(request, response);
 		setAgoods(agoods);

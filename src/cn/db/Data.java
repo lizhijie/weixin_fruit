@@ -8,6 +8,18 @@ public class Data {
 	public String sql = null;
 	public DB db1 = null;
 	public ResultSet ret = null;
+	/*public void add()
+	{
+	AGoods agoods=new AGoods();
+	AGoods xigua=new AGoods();
+	xigua.price=78;
+	xigua.about="西瓜解暑，解渴，又便宜";
+	xigua.imgurl="/西瓜";
+	agoods.name="西瓜";
+	db1 = new DB();
+	db1.connect();
+	AGoods.delete(agoods,db1.conn);
+	}*/
 
 	public void getAllGoods(ArrayList<AGoods> agoods) {
 		{

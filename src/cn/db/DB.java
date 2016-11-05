@@ -7,14 +7,13 @@ import java.sql.SQLException;
 
   
 public class DB {  
-    public static final String url = "jdbc:mysql://127.0.0.1/shangcheng";  
+    public static final String url = "jdbc:mysql://127.0.0.1/shangcheng?characterEncoding=utf-8";  
     public static final String name = "com.mysql.jdbc.Driver";  
     public static final String user = "root";  
     public static final String password = "";  
   
     public Connection conn = null;  
     public PreparedStatement pst = null;  
-  
     public boolean connect() {  
         try {  
             Class.forName(name);//指定连接类型  
@@ -30,7 +29,7 @@ public class DB {
     }  
     public ResultSet query(String sql) {  
         try {  
-        	if(connect())
+        	
             pst = conn.prepareStatement(sql);//准备执行语句  
         	return pst.executeQuery();
         } catch (Exception e) {  
@@ -38,6 +37,8 @@ public class DB {
         }
 		return null;  
     } 
+
+   
     public void close() {  
         try {  
             this.conn.close();  

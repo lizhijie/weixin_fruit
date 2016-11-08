@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;     
+import java.util.ArrayList;
 
 
 public class AGoods {
@@ -171,4 +172,5 @@ public static int update(AGoods agoods,Connection conn,AGoods set)
     }
     return i;
 }
+
 }

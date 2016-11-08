@@ -1,10 +1,8 @@
 <%@page import="cn.weixin.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:useBean id="index" class="cn.bean.IndexBean" scope="request" />
-<%
-	index.go(request, response);
-%>
+<jsp:useBean id="index" class="cn.bean.Control" scope="request" />
+<%index.make(request, response);%>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
@@ -13,23 +11,17 @@
 	content="width=device-width,initial-scale=1,user-scalable=0">
 <title>WeUI</title>
 
-<link rel="stylesheet" href="view/style/weui.css" />
-<link rel="stylesheet" href="view/style/example.css" />
+<link rel="stylesheet" href="style/weui.css" />
+<link rel="stylesheet" href="style/main.css" />
 </head>
 <body ontouchstart>
-
-	${index.name}
 	<div class="page__bd">
 		<div class="weui-panel weui-panel_access"
 			style="background-color: #FFFFEE;padding:10px;">
 			<div class="weui-panel__hd">水果天地</div>
-			<div class="weui-panel__bd">
-				<%
-					int i;
-					for (i = 0; i < 5; i++) {
-				%>
+			<div id="palist" hidden="hidden" class="weui-panel__bd">
 
-				<a href="javascript:void(0);"
+				<a id="list" href="javascript:void(0);"
 					class="weui-btn weui-media-box weui-media-box_appmsg">
 					<div class="weui-media-box__hd">
 						<img class="weui-media-box__thumb"
@@ -37,31 +29,22 @@
 							alt="">
 					</div>
 					<div class="weui-media-box__bd">
-						<h4 class="weui-media-box__title"><%=index.getAgoods().get(i).name%></h4>
-						<p class="weui-media-box__desc"><%=index.getAgoods().get(i).about%></p>
+						<h4 class="weui-media-box__title"></h4>
+						<p class="weui-media-box__desc"></p>
 					</div>
 
 				</a>
-				<%
-					;
-					}
-				%>
 			</div>
 			<div class="page__ft">
-				<a href="javascript:home()"><p class="weui-media-box__desc">
+				<a href="json.jsp?pages=kkk"><p class="weui-media-box__desc">
 						UserId:
-						<%=index.getUserId()%></p></a>
+						${index.bean.userId}</p></a>
 			</div>
 		</div>
-
-
-
 	</div>
-
-
-	<script src="view/style/zepto.min.js"></script>
+	<script src="js/zepto.min.js"></script>
 	<script type="text/javascript"
 		src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-	<script src="view/style/example.js"></script>
+	<script src="js/main.js"></script>
 </body>
 </html>

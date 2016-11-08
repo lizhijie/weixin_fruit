@@ -1,40 +1,73 @@
 package cn.bean;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONException;
-
 import cn.weixin.Authorization;
 
 public class Bean {
-	public Bean() {
-		super();
+	String json = "";
+	HttpServletRequest request;
+	HttpServletResponse response;
+	String userId=null;
+	public String getUserId() {
+		return userId;
 	}
 
-	public String login(HttpServletRequest request, HttpServletResponse response)
-			throws JSONException {
-		HttpSession session = request.getSession();
-		Object obj = session.getAttribute("userid");
 
-		String userid = null;
-		if (obj != null) {
-			userid = obj.toString();
-			System.out.println(userid);
-			return userid;
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+	public Bean(HttpServletRequest request, HttpServletResponse response) {
+		super();
+		this.request=request;
+		this.response=response;
+		try {
+			go();
+		} catch (ServletException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
 
-		System.out.print(request.getParameter("code"));
+
+	public String getJson() {
+		return json;
+	}
+
+	public void setJson(String json) {
+		this.json = json;
+	}
+
+	public String login() {
+		HttpSession session = request.getSession();
+		Object obj = session.getAttribute("userId");
+		if (obj != null) {
+			userId = obj.toString();
+			System.out.println(userId);
+			return userId;
+		}
 		String s = request.getParameter("code");
 		if (s == null || request.getParameter("code") == "") {
 			;
 		} else {
 			Authorization auth = new Authorization(s);
-			userid = auth.getOpenid();
-			session.setAttribute("userid", userid);
-			System.out.print(userid);
+			userId = auth.getOpenid();
+			session.setAttribute("userId", userId);
+			System.out.println("new" + userId);
 		}
-		return userid;
+		return userId;
+	}
+
+
+	public void go()
+			throws ServletException, IOException {
+		setUserId(login());
 	}
 }

@@ -27,18 +27,6 @@ public class DB {
             return false;
         }  
     }  
-    public ResultSet query(String sql) {  
-        try {  
-        	
-            pst = conn.prepareStatement(sql);//×¼±¸Ö´ÐÐÓï¾ä  
-        	return pst.executeQuery();
-        } catch (Exception e) {  
-            e.printStackTrace();
-        }
-		return null;  
-    } 
-
-   
     public void close() {  
         try {  
             this.conn.close();  

@@ -17,14 +17,14 @@ public class Control {
 	public void make(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException
 	{
 		String page=request.getParameter("pages");
-		if(page==null)
-			page="";
+		if(page==null||page=="")
+			page="Index";
 		Class<?> c;
 		try {
 			c = Class.forName("cn.bean."+page+"Bean");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 			c=Class.forName("cn.bean.IndexBean");
 		}
 		  @SuppressWarnings("rawtypes")

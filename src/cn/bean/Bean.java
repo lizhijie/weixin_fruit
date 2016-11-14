@@ -12,6 +12,26 @@ import cn.weixin.Authorization;
 public class Bean {
 	String json = "";
 	HttpServletRequest request;
+	public HttpServletRequest getRequest() {
+		return request;
+	}
+
+
+	public void setRequest(HttpServletRequest request) {
+		this.request = request;
+	}
+
+
+	public HttpServletResponse getResponse() {
+		return response;
+	}
+
+
+	public void setResponse(HttpServletResponse response) {
+		this.response = response;
+	}
+
+
 	HttpServletResponse response;
 	String userId=null;
 	public String getUserId() {
@@ -69,5 +89,6 @@ public class Bean {
 	public void go()
 			throws ServletException, IOException {
 		setUserId(login());
+		System.out.println(request.getParameter("echostr"));
 	}
 }

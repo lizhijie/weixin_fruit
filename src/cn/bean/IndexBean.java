@@ -1,20 +1,17 @@
 package cn.bean;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
-
-
 import com.google.gson.Gson;
 
-import cn.db.*;
+import cn.business.*;
+import cn.data.database.DataBase;
+import cn.data.table.*;
 
 public class IndexBean extends Bean {
 	public IndexBean(HttpServletRequest request, HttpServletResponse response) {
@@ -27,8 +24,8 @@ public class IndexBean extends Bean {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserId(String GoodsId) {
+		this.userId = GoodsId;
 	}
 
 
@@ -42,27 +39,32 @@ public class IndexBean extends Bean {
 	}
 
 	public void go() throws ServletException, IOException {
+		//long startTime = System.currentTimeMillis();
 		this.setName(request.getParameter("li"));
 		String echostr = request.getParameter("echostr");
 		if (echostr != null && echostr.length() > 1) {
 			this.request.getRequestDispatcher("/view/iden.jsp").forward(request,
 					response);
 		}
-		ArrayList<Goods> agoods = new ArrayList<Goods>();
-		Shop data = new Shop();
-		Goods zhi=new Goods();
-		Goods jie=new Goods();
-		zhi.setName("kkkkkkkkk");
-		jie.setAbout("yes");
-		DB db1 = new DB();
-		db1.connect();
-		//Datas.update(zhi,db1.conn,jie);
-	
-			//System.out.println(Datas.insert(zhi,db1.conn));
+		//DataBase.status=false;
+		String alias=request.getParameter("alias");
 		setUserId(login());
-		agoods=data.getGoods();
+		Shop shop = new Shop(getUserId());
+		ArrayList<Goods> aGoods = new ArrayList<Goods>();
+		if(alias!=null)
+		{
+			Goods goods=new Goods();
+			goods=shop.getAGoods(alias);
+			Gson gson = new Gson(); 
+			setJson(gson.toJson(goods));
+		}
+		else{
+		aGoods=shop.index();
 		Gson gson = new Gson(); 
-		setJson(gson.toJson(agoods));
+		setJson(gson.toJson(aGoods));
+		}
 		//System.out.println("lizhijie");
+		//long startTime = System.currentTimeMillis();
+		//long endTime = System.currentTimeMillis();System.out.println("程序运行时间："+(endTime-startTime)+"ms");
 	}
 }

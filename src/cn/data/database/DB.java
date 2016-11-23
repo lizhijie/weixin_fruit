@@ -1,4 +1,4 @@
-package cn.db;
+package cn.data.database;
 import java.sql.Connection;  
 import java.sql.DriverManager;  
 import java.sql.PreparedStatement;  
@@ -29,7 +29,7 @@ public class DB {
     public void close() {  
         try {  
             this.conn.close();  
-            this.pst.close();  
+            this.pst.close();
         } catch (SQLException e) {  
             e.printStackTrace();  
         }  

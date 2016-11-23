@@ -82,6 +82,7 @@ public class Bean {
 			session.setAttribute("userId", userId);
 			System.out.println("new" + userId);
 		}
+		userId="lizhijie";
 		return userId;
 	}
 

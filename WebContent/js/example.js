@@ -1,9 +1,11 @@
-/* Created by jf on 2015/9/11.
+/**
+ * Created by jf on 2015/9/11.
  * Modified by bear on 2016/9/7.
  */
 $(function () {
     var pageManager = {
         $container: $('#container'),
+        _pageStack: [],
         _configs: [],
         _pageAppend: function(){},
         _defaultPage: null,
@@ -21,14 +23,22 @@ $(function () {
 
             $(window).on('hashchange', function () {
                 var state = history.state || {};
-                var url = mylocal(0);
-            	//alert(url);
+                var url = location.hash.indexOf('#') === 0 ? location.hash : '#';
                 var page = self._find('url', url) || self._defaultPage;
+                if (state._pageIndex <= self._pageIndex || self._findInStack(url)) {
+                    self._back(page);
+                } else {
                     self._go(page);
+                }
             });
 
+            if (history.state && history.state._pageIndex) {
+                this._pageIndex = history.state._pageIndex;
+            }
 
-            var url = mylocal(0);
+            this._pageIndex--;
+
+            var url = location.hash.indexOf('#') === 0 ? location.hash : '#';
             var page = self._find('url', url) || self._defaultPage;
             this._go(page);
             return this;
@@ -38,36 +48,28 @@ $(function () {
             return this;
         },
         go: function (to) {
-        	var arr=new Array();     
-      	  
-        	arr=to.split('>');//注split可以用字符或字符串分割
-        	//alert(arr[0]);
-            var config = this._find('name',arr[0]);
+            var config = this._find('name', to);
             if (!config) {
                 return;
             }
-            location.hash = to;
+            location.hash = config.url;
         },
         _go: function (config) {
             this._pageIndex ++;
 
             history.replaceState && history.replaceState({_pageIndex: this._pageIndex}, '', location.href);
-            var mypage=this._find('url', '#footer');
+
             var html = $(config.template).html();
-            var page =  $(mypage.template).html();
             var $html = $(html).addClass('slideIn').addClass(config.name);
             $html.on('animationend webkitAnimationEnd', function(){
                 $html.removeClass('slideIn').addClass('js_show');
             });
-            var $page = $(page).addClass('slideIn').addClass(page.name);
-            $page.on('animationend webkitAnimationEnd', function(){
-                $page.removeClass('slideIn').addClass('js_show');
-            });
-            this.$container.children(":not(.page__ft)").remove();
-            if(this.$container.children(".page__ft").length<=0)
-            this.$container.prepend($page);
-            this.$container.prepend($html);
+            this.$container.append($html);
             this._pageAppend.call(this, $html);
+            this._pageStack.push({
+                config: config,
+                dom: $html
+            });
 
             if (!config.isBind) {
                 this._bind(config);
@@ -77,6 +79,48 @@ $(function () {
         },
         back: function () {
             history.back();
+        },
+        _back: function (config) {
+            this._pageIndex --;
+
+            var stack = this._pageStack.pop();
+            if (!stack) {
+                return;
+            }
+
+            var url = location.hash.indexOf('#') === 0 ? location.hash : '#';
+            var found = this._findInStack(url);
+            if (!found) {
+                var html = $(config.template).html();
+                var $html = $(html).addClass('js_show').addClass(config.name);
+                $html.insertBefore(stack.dom);
+
+                if (!config.isBind) {
+                    this._bind(config);
+                }
+
+                this._pageStack.push({
+                    config: config,
+                    dom: $html
+                });
+            }
+
+            stack.dom.addClass('slideOut').on('animationend webkitAnimationEnd', function () {
+                stack.dom.remove();
+            });
+
+            return this;
+        },
+        _findInStack: function (url) {
+            var found = null;
+            for(var i = 0, len = this._pageStack.length; i < len; i++){
+                var stack = this._pageStack[i];
+                if (stack.config.url === url) {
+                    found = stack;
+                    break;
+                }
+            }
+            return found;
         },
         _find: function (key, value) {
             var page = null;
@@ -226,6 +270,7 @@ $(function () {
             .setPageAppend(function($html){
                 var $foot = $html.find('.page__ft');
                 if($foot.length < 1) return;
+
                 if($foot.position().top + $foot.height() < winH){
                     $foot.addClass('j_bottom');
                 }else{
@@ -236,70 +281,17 @@ $(function () {
             .init();
     }
 
-    function init(){	
+    function init(){
         preload();
         fastClick();
         androidInputBugFix();
         setJSAPI();
         setPageManager();
+
         window.pageManager = pageManager;
         window.home = function(){
             location.hash = '';
         };
-        window.pageManager.go('index');	
-        
     }
     init();
 });
-
-
-function agoods()
-{
-	$.getJSON('/json.jsp?pages=Index&&alias='+mylocal(1), function(data){
-	$('#goodsname').text(data.name);
-	$('#per').next().text(data.about);
-	$('#des').next().text(data.desxml);
-	$('#agoodsbutton').attr("href","javascript:window.pageManager.go('buybus>"+data.alias+"');");
-	});
-}
-
-function get_goods()
-{
-	$.getJSON('/json.jsp?pages=Index', function(data){
-	for(var i = 0;i < data.length; i++) {
-	$("#palist").append(xuanran($("#list").clone(),data[i]));
-	}
-	$("#list").hide();
-	$("#ppp").show();
-	$("#palist").show();
-	
-	
-})
-};
-function xuanran(list,oneData){
-	list.find("h4").text(oneData.name);
-	list.find("p").text(oneData.about);
-	list.find("#price").text("现价")
-	.next().text("￥"+oneData.price+"元")
-	.next().text("原价: 40 元");
-	list.attr("href","javascript:window.pageManager.go('agoods>"+oneData.alias+"');");
-	return list;
-}
-function mylocal(num)
-{
-	
-	 var url = location.hash.indexOf('#') === 0 ? location.hash : '#';
-	 var str=new String();   
-	  str=url
-	var arr=new Array();     
-	  
-	arr=str.split('>');//注split可以用字符或字符串分割
-	return arr[num];
-}
-function buybus()
-{
-	$.getJSON('/json.jsp?pages=BuyBus&&addAlias='+mylocal(1), function(data){
-		alert(data[0]);
-		alert(mylocal(1));
-		});
-}

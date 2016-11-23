@@ -1,4 +1,4 @@
-package cn.db;
+package cn.data.database;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -11,7 +11,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Data {
+public class DataBase {
+	public static boolean status=true;
+	public static String sq="";
+	public static int run(Connection conn,String sql){
+		int i=0;
+		PreparedStatement pst = null;
+		try {
+			pst = (PreparedStatement) conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			i = pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+	}
 	public static int insert(Object object, Connection conn) {
 		// 定义一个sql字符串
 		String sql = "insert into ";
@@ -63,6 +82,8 @@ public class Data {
 		}
 		System.out.println(sql);
 		int i = 0;
+		sq=sql;
+		if(status){
 		PreparedStatement pst = null;
 		try {
 			pst = (PreparedStatement) conn.prepareStatement(sql);
@@ -75,6 +96,7 @@ public class Data {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
 		}
 		return i;
 
@@ -85,12 +107,15 @@ public class Data {
 				+ where(condition);
 
 		System.out.print(sql);
+		sq=sql;
+		if(status){
 		try {
 
 			PreparedStatement pst = conn.prepareStatement(sql);// 准备执行语句
 			return pst.executeQuery();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
 		}
 		return null;
 	}
@@ -101,7 +126,9 @@ public class Data {
 		String sql = "delete from " + getTableName(condition)
 				+ where(condition);
 
-		System.out.print(sql);
+		System.out.println(sql);
+		sq=sql;
+		if(status){
 		try {
 
 			PreparedStatement pst = conn.prepareStatement(sql);// 准备执行语句
@@ -109,6 +136,7 @@ public class Data {
 			pst.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
 		}
 		return i;
 	}
@@ -118,6 +146,8 @@ public class Data {
 				+ where(condition);
 		System.out.println(sql);
 		int i = 0;
+		sq=sql;
+		if(status){
 		PreparedStatement pst = null;
 		try {
 			pst = (PreparedStatement) conn.prepareStatement(sql);
@@ -130,6 +160,7 @@ public class Data {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
 		}
 		return i;
 	}
@@ -228,7 +259,6 @@ public class Data {
 
 	}
 
-	
 	public static String column(Object object) {
 		String sql = "";
 		// 得到对象的类

@@ -34,11 +34,11 @@ public class ShowClerk extends Clerk {
 		// col.setPrice(1);
 		// col.setTime("1");
 		// long startTime = System.currentTimeMillis();
-		ret = DataBase.find(new Goods(), safeClerk.dbGateOpen(), col);
+		ret = safeClerk.getDataBase().find(new Goods(), col);
 		// long endTime =
 		// System.currentTimeMillis();System.out.println("程序运行时间："+(endTime-startTime)+"ms");
 		try {
-			ob = DataBase.retTo(new Goods(), ret);
+			ob = safeClerk.getDataBase().retTo(new Goods(), ret);
 			for (int i = 0; i < ob.size(); i++)
 				aGoods.add((Goods) ob.get(i));
 			// JSONArray json=new JSONArray(AGoods.toArrayList(aGoods));
@@ -65,11 +65,11 @@ public class ShowClerk extends Clerk {
 		col.setDesxml("1");
 		col.setAlias("1");
 		col.setAbout("1");
-		ret = DataBase.find(condi, safeClerk.dbGateOpen(), col);
+		ret = safeClerk.getDataBase().find(condi, col);
 		// long endTime =
 		// System.currentTimeMillis();System.out.println("程序运行时间："+(endTime-startTime)+"ms");
 		try {
-			ob = DataBase.retTo(new Goods(), ret);
+			ob = safeClerk.getDataBase().retTo(new Goods(), ret);
 			for (int i = 0; i < ob.size(); i++)
 				aGoods.add((Goods) ob.get(i));
 			// JSONArray json=new JSONArray(AGoods.toArrayList(aGoods));
@@ -95,9 +95,9 @@ public class ShowClerk extends Clerk {
 		col.setName("1");
 		col.setPrice(1);
 
-		ret = DataBase.find(where, safeClerk.dbGateOpen(), col);
+		ret = safeClerk.getDataBase().find(where, col);
 		try {
-			ob = DataBase.retTo(new Buybus(), ret);
+			ob = safeClerk.getDataBase().retTo(new Buybus(), ret);
 		} catch (NumberFormatException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -118,9 +118,9 @@ public class ShowClerk extends Clerk {
 		col.setNum(1);
 		Orders where = new Orders();
 		where.setWho(safeClerk.userId);
-		ret = DataBase.find(where, safeClerk.dbGateOpen(), col);
+		ret = safeClerk.getDataBase().find(where, col);
 		try {
-			ob = DataBase.retTo(new Orders(), ret);
+			ob = safeClerk.getDataBase().retTo(new Orders(), ret);
 		} catch (NumberFormatException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

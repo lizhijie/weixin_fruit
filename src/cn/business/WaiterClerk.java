@@ -26,7 +26,7 @@ public class WaiterClerk extends Clerk {
 		Buybus condition = new Buybus();
 		condition.setWho(safeClerk.userId);
 		condition.setAlias(alias);
-		int i = DataBase.delete(condition, safeClerk.dbGateOpen());
+		int i = safeClerk.getDataBase().delete(condition);
 		System.out.println(i);
 		return i;
 
@@ -34,6 +34,21 @@ public class WaiterClerk extends Clerk {
 
 	public int addBuybus(String alias) {
 		Buybus add = new Buybus();
+		ArrayList<Buybus> repeat = new ArrayList<Buybus>();
+		ArrayList<Object> reob = new ArrayList<Object>();
+		Buybus recondition = new Buybus();
+		recondition.setAlias(alias);
+		recondition.setWho(safeClerk.userId);
+		try {
+			reob = safeClerk.getDataBase().retTo(new Buybus(),
+					safeClerk.getDataBase().find(recondition, new Buybus()));
+		} catch (NumberFormatException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(reob.size()>0)
+			return 0;
+		
 		ArrayList<Goods> aGoods = new ArrayList<Goods>();
 		ArrayList<Object> ob = new ArrayList<Object>();
 		Goods condition = new Goods();
@@ -43,8 +58,8 @@ public class WaiterClerk extends Clerk {
 		col.setName("1");
 		col.setPrice(1);
 		try {
-			ob = DataBase.retTo(new Goods(),
-					DataBase.find(condition, safeClerk.dbGateOpen(), col));
+			ob = safeClerk.getDataBase().retTo(new Goods(),
+					safeClerk.getDataBase().find(condition, col));
 		} catch (NumberFormatException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,7 +73,7 @@ public class WaiterClerk extends Clerk {
 		add.setCount(1);
 		add.setTime("2016-11-19 15:49:40");
 		add.setWho(safeClerk.userId);
-		int i = DataBase.insert(add, safeClerk.dbGateOpen());
+		int i = safeClerk.getDataBase().insert(add);
 		System.out.println(i);
 
 		return i;
@@ -71,10 +86,11 @@ public class WaiterClerk extends Clerk {
 		Buybus col = new Buybus();
 		Buybus where = new Buybus();
 		where.setWho(safeClerk.userId);
+		where.setAlias(alias);
 		col.setCount(1);
 		try {
-			ob = DataBase.retTo(new Buybus(),
-					DataBase.find(where, safeClerk.dbGateOpen(), col));
+			ob = safeClerk.getDataBase().retTo(new Buybus(),
+					safeClerk.getDataBase().find(where, col));
 		} catch (NumberFormatException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,10 +111,11 @@ public class WaiterClerk extends Clerk {
 		else {
 			return false;
 		}
+		System.out.println("jiajian->>"+buybus.get(0).getCount());
 		sqlSet.setCount(buybus.get(0).getCount() + p);
 		if (sqlSet.getCount() < 1)
-			sqlSet.setCount(1);
-		int i = DataBase.update(condition, safeClerk.dbGateOpen(), sqlSet);
+			return false;
+		int i = safeClerk.getDataBase().update(condition, sqlSet);
 		System.out.println(i);
 		if (i > 0)
 			return true;
@@ -116,10 +133,10 @@ public class WaiterClerk extends Clerk {
 		cool.setStatus(1);
 		cool.setTime(df.format(new Date()));
 		cool.setWho(safeClerk.userId);
-		DataBase.insert(cool, safeClerk.dbGateOpen());
+		safeClerk.getDataBase().insert(cool);
 		coolWhere.setWho(safeClerk.userId);
 		coolCol.setNum(1);
-		ret = DataBase.find(coolWhere, safeClerk.dbGateOpen(), coolCol);
+		ret = safeClerk.getDataBase().find(coolWhere, coolCol);
 		int number = 0;
 		try {
 			ret.afterLast();
@@ -130,11 +147,10 @@ public class WaiterClerk extends Clerk {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		DataBase.status = false;
+		safeClerk.getDataBase().status = false;
 		Orders value = new Orders();
-		DataBase.insert(value, safeClerk.dbGateOpen());
-		sql = DataBase.sq;
+		safeClerk.getDataBase().insert(value);
+		sql = safeClerk.getDataBase().sq;
 		sql = sql.split("values")[0];
 		sql = sql.replace("id,", "");
 		sql = sql.replace("about,", "");
@@ -147,14 +163,14 @@ public class WaiterClerk extends Clerk {
 		col.setWho("1");
 		col.setAlias("1");
 		col.setTime("");
-		DataBase.find(condition, safeClerk.dbGateOpen(), col);
-		String sql2 = DataBase.sq;
+		safeClerk.getDataBase().find(condition, col);
+		String sql2 = safeClerk.getDataBase().sq;
 		sql2 = sql2.replace("time", "'" + df.format(new Date()) + "'");
 		sql2 = sql2.replace("select", "select " + number + ",");
 		sql2 = sql + sql2;
 		System.out.println(sql2);
-		int i = DataBase.run(safeClerk.dbGateOpen(), sql2);
-		DataBase.status = true;
+		int i = safeClerk.getDataBase().run( sql2);
+		safeClerk.getDataBase().status = true;
 		return i;
 	}
 
@@ -162,7 +178,7 @@ public class WaiterClerk extends Clerk {
 		Orders condition = new Orders();
 		condition.setWho(safeClerk.userId);
 		condition.setNum(num);
-		int i = DataBase.delete(condition, safeClerk.dbGateOpen());
+		int i = safeClerk.getDataBase().delete(condition);
 		System.out.println(i);
 		return i;
 

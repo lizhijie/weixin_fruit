@@ -1,5 +1,5 @@
 ﻿<%
-	//long startTime = System.currentTimeMillis();
+	long startTime = System.currentTimeMillis();
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>WeUI</title>
-    <link rel="stylesheet" href="./style/weui.css"/>
+    <link rel="stylesheet" href="./style/weui.min.css"/>
     <link rel="stylesheet" href="./style/main.css"/>
 </head>
 <body ontouchstart>
@@ -30,10 +30,10 @@
 							<img src="./images/icon_tabbar.png" alt=""
 							class="weui-tabbar__icon">
 							<p class="weui-tabbar__label">鲜果</p>
-						</a> <a href="javascript:;" class="weui-tabbar__item" data-id="toast"> <img
+						</a> <a href="javascript:;" class="weui-tabbar__item" data-id="buybus"> <img
 							src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
 							<p class="weui-tabbar__label" >果篮</p>
-						</a> <a href="javascript:;" class="weui-tabbar__item"> <img
+						</a> <a href="javascript:;" class="weui-tabbar__item" data-id="toast"> <img
 							src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
 							<p class="weui-tabbar__label">订单</p>
 						</a> <a href="javascript:;" class="weui-tabbar__item"> <img
@@ -202,8 +202,32 @@ agoods();
     
     <script type="text/html" id="tpl_buybus">
     <div class="page__bd">
-<a href="javascript:;" class="weui-btn weui-btn_plain-primary" id="agoodsbutton">加入购物车</a>
+<label class="weui-form-preview__label">我的购物车</label>
+<span class="weui-form-preview__value"><span id="total">0</span><span >元</span></span>
+<hr></hr>
+<div class="page__bd" id="buybus_parent">
+<div class="weui-form-preview" id="buybus_child">
+            
+            <div class="weui-form-preview__bd">
+            
+                <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">苹果</label>
+                    <span class="weui-form-preview__value"><span>￥</span><span id="the_price">0</span><span>元</span></span>
+                </div>
+                    <div class="weui-form-preview__value">关于</div>
+                
+            </div>
+            <div class="weui-form-preview__item" id="buts">
+                <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary" id="buybus_buttons">加</a>
+				<span class="buybus_count">0</span>
+				<span>份</span>
+				<a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary" id="buybus_buttons">减</a>
+				<a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_warn" id="buybus_buttons">删除</a>
+
+            </div>
+        </div>
     </div>
+</div>
 <script type="text/javascript">
 buybus();
 </script>
@@ -217,5 +241,5 @@ buybus();
 </body>
 </html>
 <%
-	//long endTime = System.currentTimeMillis();System.out.println("程序运行时间："+(endTime-startTime)+"ms");
+	long endTime = System.currentTimeMillis();System.out.println("程序运行时间："+(endTime-startTime)+"ms");
 %>

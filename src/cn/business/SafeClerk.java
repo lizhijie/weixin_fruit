@@ -4,16 +4,30 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import cn.data.database.DB;
+import cn.data.database.DataBase;
 
 public class SafeClerk extends Clerk {
 	private DB db1 = null;
 	private Connection con = null;
 	protected String userId;
+	private DataBase database=null;
 
 	public SafeClerk(String userId) {
 		this.userId = userId;
 	}
 
+	
+	protected DataBase getDataBase()
+	{
+		if(database==null)
+		{
+			database=new DataBase();
+		}
+		database.conn=dbGateOpen();
+		return database;
+	}
+	
+	
 	protected Connection dbGateOpen() {
 		if (db1 == null)
 			db1 = new DB();

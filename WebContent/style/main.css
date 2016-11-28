@@ -495,13 +495,14 @@ animation:b .2s forwards
 
 }
 .weui-panel{
-	background-color: #FFFFEE;
+	background-color: #AEEEEE;
 
 
 }
 .weui-media-box {
   padding: 0px;
   position: relative;
+  background:#BEEEEE;
 }
 .weui-media-box_appmsg .weui-media-box__hd {
   margin-right: .8em;
@@ -511,14 +512,47 @@ animation:b .2s forwards
   text-align: top;
 }
 .page__bd{
-	background-color: #FFFFEE;
+	background-color: #AEEEEE;
 
 	padding:10px;
 
 
 }
 .container{
-	background-color: #FFFFEE;
+	background-color: #AEEEEE;
 
 
+}
+#buybus_buttons {
+    margin-top: 0px;
+    margin-left: 10px;
+}
+.weui-form-preview__bd {
+    padding: 10px 15px;
+    padding-top: 2px;
+    padding-right: 15px;
+    padding-bottom: 2px;
+    padding-left: 15px;
+    font-size: 15px;
+    text-align: right;
+    color: #999;
+    line-height: 2;
+    margin-top: 15px;
+}
+#buts {
+  float:auto;
+}
+#buybus_child{
+border-radius: 10px;
+background-color: #AEEE00;
+}
+.weui-media-box__info__meta{
+	
+	margin-left: 20px;
+}
+.buybus_count
+{
+margin-bottom:15px;
+color: #6B1A1A;
+background-color: white;
 }

@@ -1,6 +1,7 @@
 /* Created by jf on 2015/9/11.
  * Modified by bear on 2016/9/7.
  */
+var the_data;
 $(function () {
     var pageManager = {
         $container: $('#container'),
@@ -255,7 +256,7 @@ $(function () {
 
 function agoods()
 {
-	$.getJSON('/json.jsp?pages=Index&&alias='+mylocal(1), function(data){
+	$.getJSON('./json.jsp?pages=Index&&alias='+mylocal(1), function(data){
 	$('#goodsname').text(data.name);
 	$('#per').next().text(data.about);
 	$('#des').next().text(data.desxml);
@@ -265,7 +266,7 @@ function agoods()
 
 function get_goods()
 {
-	$.getJSON('/json.jsp?pages=Index', function(data){
+	$.getJSON('./json.jsp?pages=Index', function(data){
 	for(var i = 0;i < data.length; i++) {
 	$("#palist").append(xuanran($("#list").clone(),data[i]));
 	}
@@ -298,8 +299,95 @@ function mylocal(num)
 }
 function buybus()
 {
-	$.getJSON('/json.jsp?pages=BuyBus&&addAlias='+mylocal(1), function(data){
-		alert(data[0]);
-		alert(mylocal(1));
+	if(mylocal(1))
+		{
+	$.getJSON('./json.jsp?pages=BuyBus&&addAlias='+mylocal(1), function(data){
+		location.hash=mylocal(0);
+		//setTimeout("location.hash=mylocal(0);",1);
 		});
+	
+		}
+	else
+		{
+		buybus_xuanran();
+		}
+}
+
+function buybus_xuanran()
+{
+	var my_content;
+	var this_content;
+	$.getJSON('./json.jsp?pages=BuyBus', function(data){
+		the_data=data;
+		my_content= $("#buybus_parent").find("#buybus_child:first-child");
+		$("#buybus_parent").text(" ");
+		for(var i = 0;i < data.length; i++) {
+			this_content=my_content.clone();
+			this_content.find(".weui-form-preview__item").find(".weui-form-preview__label").text(data[i].name)
+			.next().find("#the_price").text(data[i].price).parent().parent().next().text(data[i].about);
+			my_count=this_content.find("#buts").find(".buybus_count");
+			my_count.text(data[i].count);
+			this_content.find("#buts").attr("alias",data[i].alias).find(".weui-btn_warn").on(
+					'click',
+					function() {
+						//$.ajaxSettings.async = false; 
+						self=$(this);
+						$.getJSON('./json.jsp?pages=BuyBus&&delAlias='+self.parent().attr("alias"), function(mydata){
+							if(mydata[0]==1)
+						self.parent().parent().remove();
+							buybus_total();
+						});				
+});
+			plus=this_content.find("#buts").find(":first-child");
+			decre=plus.next().next().next();
+			decre.on(
+					'click',
+					function() {
+						//$.ajaxSettings.async = false; 
+						self=$(this);
+						$.getJSON('./json.jsp?pages=BuyBus&&countAlias='+self.parent().attr("alias")+'&&countPlus=no', function(mydata){
+							c=self.prev().prev();
+							if(mydata[0]==1)
+						if((c.text())*1>1)
+							{
+							c.text(c.text()*1-1);
+							buybus_total();
+							}
+						});				
+});
+	
+			plus.on(
+					'click',
+					function() {
+						//$.ajaxSettings.async = false; 
+						self=$(this);
+						$.getJSON('./json.jsp?pages=BuyBus&&countAlias='+self.parent().attr("alias")+'&&countPlus=yes', function(mydata){
+							if(mydata[0]==1)
+							{
+					c=self.next();
+						c.text(c.text()*1+1);
+						buybus_total();
+							}
+						});				
+});
+			$("#buybus_parent").prepend(this_content);
+			this_content=null;
+		}
+		buybus_total();
+		});
+	//$("#buybus_parent #buybus_child:first-child").hide();
+}
+function buybus_total()
+{
+	var cou=0;
+	the_parent=$("#buybus_parent #buybus_child")
+	the_parent.each( function(){
+        child=$(this);
+        price=child.find("#the_price").text()*1;
+        count=child.find(".buybus_count").text()*1;
+       cou=cou*1+price*count;
+       //alert(cou);
+       
+    });
+	$("#total").text(cou*1);
 }

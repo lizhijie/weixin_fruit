@@ -485,7 +485,7 @@ animation:b .2s forwards
 
     opacity:0.7;
 
-    background:#FFF8D7;
+    background:#D3D7D4;
 
 
 }
@@ -495,14 +495,14 @@ animation:b .2s forwards
 
 }
 .weui-panel{
-	background-color: #AEEEEE;
+	background-color: #FFFFFB;
 
 
 }
 .weui-media-box {
   padding: 0px;
   position: relative;
-  background:#BEEEEE;
+  background:#ABC88B;
 }
 .weui-media-box_appmsg .weui-media-box__hd {
   margin-right: .8em;
@@ -512,17 +512,21 @@ animation:b .2s forwards
   text-align: top;
 }
 .page__bd{
-	background-color: #AEEEEE;
+	background-color: #FFFFFB;
 
 	padding:10px;
 
 
 }
 .container{
-	background-color: #AEEEEE;
+	background-color: #FFFFFB;
 
 
 }
+.page__title {
+    text-align: center;
+}
+
 #buybus_buttons {
     margin-top: 0px;
     margin-left: 10px;

@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>WeUI</title>
+    <title>水果小店</title>
     <link rel="stylesheet" href="./style/weui.min.css"/>
     <link rel="stylesheet" href="./style/main.css"/>
 </head>
@@ -33,10 +33,10 @@
 						</a> <a href="javascript:;" class="weui-tabbar__item" data-id="buybus"> <img
 							src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
 							<p class="weui-tabbar__label" >果篮</p>
-						</a> <a href="javascript:;" class="weui-tabbar__item" data-id="toast"> <img
+						</a> <a href="javascript:;" class="weui-tabbar__item" data-id="orders"> <img
 							src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
 							<p class="weui-tabbar__label">订单</p>
-						</a> <a href="javascript:;" class="weui-tabbar__item"> <img
+						</a> <a href="javascript:;" class="weui-tabbar__item" data-id="mine"> <img
 							src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
 							<p class="weui-tabbar__label">信息</p>
 						</a>
@@ -227,11 +227,167 @@ agoods();
             </div>
         </div>
     </div>
+<a href="javascript:;" class="weui-btn weui-btn_plain-primary" id="clear_buybus">结算购物车</a>
 </div>
 <script type="text/javascript">
 buybus();
 </script>
 </script>
+    
+    
+    
+   <script type="text/html" id="tpl_orders">
+<div class="page__bd">
+		<div class="preview js_show">
+    <div class="page__hd">
+        <h1 class="page__title">我的订单</h1>
+		<hr></hr>
+    </div>
+    <div class="page__bd" id="orders_parent">
+        <div class="weui-form-preview" id="one_orders">
+            <div class="weui-form-preview__hd">
+                <label class="weui-form-preview__label"><span>订单号:6839482</span><span id="orders_num">1157585903</span></label>
+                <em class="weui-form-preview__value"><span>￥</span><span id="orders_total">0</span></em>
+            </div>
+            <div class="weui-form-preview__bd" id="orders_goods">
+                <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span id="orders_name">苹果</span></label>
+                    <span class="weui-form-preview__value"><span id="orders_count">0</span><span>份*</span><span id="orders_price">0</span><span>元</span></span>
+                </div>
+            </div>
+            <div class="weui-form-preview__ft">
+                <a class="weui-form-preview__btn weui-form-preview__btn_default" href="javascript:" id="orders_del">删除订单</a>
+                <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">订单详情</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+orders();
+</script>
+</script> 
+
+
+<script type="text/html" id="tpl_aorder">
+<div class="page__bd">
+    <div class="page__bd">
+        <h1 class="page__title"><span>单号:6839482</span><span id="aorder_num">541413430124</span></h1>
+		<hr></hr>
+    </div>
+        <div class="weui-form-preview">
+            <div class="weui-form-preview__bd" id="aorder_goods">
+                <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span id="aorder_name">苹果</span></label>
+                    <span class="weui-form-preview__value"><span id="aorder_count">0</span><span>份*</span><span id="aorder_price">0</span><span>元</span></span>
+                </div>
+            </div>
+			
+			<div class="weui-form-preview__bd">
+				<div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span>订单金额:</span></label>
+                    <span class="weui-form-preview__value"><span>￥</span><span id="aorder_total">220</span></span>
+               	</div>
+                <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span>订单时间:</span></label>
+                    <span class="weui-form-preview__value"><span id="aorder_time">2016-12-01 13:26:30</span></span>
+                </div>
+				<div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span>订单状态:</span></label>
+                    <span class="weui-form-preview__value"><span>已关闭</span></span>
+                </div>
+				<div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span>收件人:</span></label>
+                    <span class="weui-form-preview__value"><span id="aorder_recname">李志杰</span></span>
+               	</div>
+				<div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span>手机号码:</span></label>
+                    <span class="weui-form-preview__value"><span id="aorder_recnum">15516937925</span></span>
+               	</div>
+				<div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span>收货地址:</span></label>
+                    <span class="weui-form-preview__value"><span id="aorder_recaddress">郑州市高新区郑州轻工业学院</span></span>
+               	</div>
+            </div>
+
+
+			
+
+			
+            <div class="weui-form-preview__ft">
+                <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:" id="change_address">修改收货信息</a>
+                <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">确认付款</button>
+            </div>
+
+
+
+
+		<div class="weui-skin_android" id="address" style="opacity: 0; display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-actionsheet">
+            <div class="weui-actionsheet__menu" id="address_input">
+                <div class="weui-actionsheet__cell"><input class="weui-input" type="text" placeholder="收货人" id="address_recname"></div>
+                <div class="weui-actionsheet__cell"><input class="weui-input" type="text" placeholder="联系方式" id="address_recnum"></div>
+                <div class="weui-actionsheet__cell"><textarea class="weui-textarea" placeholder="请输入收货人地址" rows="3" id="address_recaddress"></textarea></div>
+				<a href="javascript:;" class="weui-btn weui-btn_plain-default" id="add_input">修改</a>
+            </div>
+        </div>
+    </div>
+
+
+        </div>
+</div>
+<script type="text/javascript">
+aorder();
+ 
+</script>
+</script> 
+    
+    
+    
+    
+    
+    <script type="text/html" id="tpl_mine">
+<div class="page__bd">
+<h1 class="page__title">我的信息</h1>
+<div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">昵称:</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" pattern="[0-9]*" placeholder="用于网页登陆名">
+                </div>
+            </div>
+<div class="weui-cells__title">收货地址</div>
+	<div class="weui-cells weui-cells_radio">
+            <label class="weui-cell weui-check__label" for="x11">
+                <div class="weui-cell__bd">
+                    <p>cell standard</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" class="weui-check" name="radio1" id="x11">
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="x12">
+
+                <div class="weui-cell__bd">
+                    <p>cell standard</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" name="radio1" class="weui-check" id="x12" checked="checked">
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <a href="javascript:void(0);" class="weui-cell weui-cell_link">
+                <div class="weui-cell__bd">添加收货地址</div>
+            </a>
+        </div>
+</div>
+<script type="text/javascript">
+mine();
+</script>
+</script>  
+    
+    
     
     
     

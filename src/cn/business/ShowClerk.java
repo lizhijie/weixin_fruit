@@ -6,8 +6,10 @@ import java.util.ArrayList;
 
 import cn.data.database.DataBase;
 import cn.data.table.Buybus;
+import cn.data.table.Cool;
 import cn.data.table.Goods;
 import cn.data.table.Orders;
+import cn.data.table.Receiver;
 
 public class ShowClerk extends Clerk {
 	ResultSet ret = null;
@@ -107,7 +109,7 @@ public class ShowClerk extends Clerk {
 		return buybus;
 	}
 
-	public ArrayList<Orders> getUserOrders() {
+	public ArrayList<Object> getUserOrders(int num) {
 		ArrayList<Orders> order = new ArrayList<Orders>();
 		ArrayList<Object> ob = new ArrayList<Object>();
 		Orders col = new Orders();
@@ -116,8 +118,13 @@ public class ShowClerk extends Clerk {
 		col.setAlias("1");
 		col.setCount(1);
 		col.setNum(1);
+		col.setPrice(1);
 		Orders where = new Orders();
 		where.setWho(safeClerk.userId);
+		if(num!=0)
+		{
+			where.setNum(num);
+		}
 		ret = safeClerk.getDataBase().find(where, col);
 		try {
 			ob = safeClerk.getDataBase().retTo(new Orders(), ret);
@@ -127,6 +134,39 @@ public class ShowClerk extends Clerk {
 		}
 		for (int i = 0; i < ob.size(); i++)
 			order.add((Orders) ob.get(i));
-		return order;
+		
+		ArrayList<Cool> cool = new ArrayList<Cool>();
+		ArrayList<Object> obj = new ArrayList<Object>();
+		Cool ccol = new Cool();
+		ccol.setNum(1);
+		ccol.setTime("1");
+		ccol.setStatus(1);
+		ccol.setRecnum("1");;
+		ccol.setRecname("1");;
+		ccol.setRecaddress("1");;
+		Cool cwhere = new Cool();
+		cwhere.setNum(num);
+		cwhere.setWho(safeClerk.userId);
+		ret = safeClerk.getDataBase().find(cwhere, ccol);
+		try {
+			obj = safeClerk.getDataBase().retTo(new Cool(), ret);
+		} catch (NumberFormatException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (int i = 0; i < obj.size(); i++)
+			cool.add((Cool) obj.get(i));
+		
+		ArrayList<Object> a=new ArrayList<Object>();
+		a.add(order);
+		a.add(cool);
+		return a;
 	}
+
+	public ArrayList<Receiver> getUserAddress(){
+		return null;
+		
+		
+	}
+
 }

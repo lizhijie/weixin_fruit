@@ -13,9 +13,9 @@ import com.google.gson.Gson;
 import cn.business.Shop;
 import cn.data.table.Orders;
 
-public class OrdersBean extends Bean {
+public class AddressBean extends Bean {
 
-	public OrdersBean(HttpServletRequest request, HttpServletResponse response) {
+	public AddressBean(HttpServletRequest request, HttpServletResponse response) {
 		super(request, response);
 		// TODO Auto-generated constructor stub
 	}

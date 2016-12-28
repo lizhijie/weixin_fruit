@@ -75,11 +75,17 @@ public class Shop {
 			return false;
 	}
 
-	public ArrayList<Orders> orders() {
+	public ArrayList<Object> orders() {
 		if (safeClerk.isSafeUser())
-			return showClerk.getUserOrders();
+			return showClerk.getUserOrders(0);
 		else
-			return new ArrayList<Orders>();
+			return new ArrayList<Object>();
+	}
+	public ArrayList<Object> getAOrders(int num) {
+		if (safeClerk.isSafeUser())
+			return showClerk.getUserOrders(num);
+		else
+			return new ArrayList<Object>();
 	}
 
 	public boolean delOrders(int orders) {
@@ -95,15 +101,26 @@ public class Shop {
 			return false;
 	}
 
-	public boolean toOrders() {
+	public int toOrders() {
 		if (safeClerk.isSafeUser()) {
 			int num = waiter.toOrders();
 			if (num > 0)
-				return true;
+				return num;
 			else
-				return false;
+				return 0;
 		} else
-			return false;
+			return 0;
 
+	}
+	public int updateCoolAddress(ArrayList<String> rec,int num)
+	{
+		if (safeClerk.isSafeUser()) {
+			int i = waiter.updateCoolAddress(rec, num);
+			if (i > 0)
+				return i;
+			else
+				return 0;
+		} else
+			return 0;
 	}
 }

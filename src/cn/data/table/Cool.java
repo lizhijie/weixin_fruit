@@ -5,6 +5,9 @@ public class Cool {
 	String who;
 	int status;
 	String time;
+	String recnum;
+	String recname;
+	String recaddress;
 	public int getNum() {
 		return num;
 	}
@@ -28,6 +31,24 @@ public class Cool {
 	}
 	public void setTime(String time) {
 		this.time = time;
+	}
+	public String getRecnum() {
+		return recnum;
+	}
+	public void setRecnum(String recnum) {
+		this.recnum = recnum;
+	}
+	public String getRecname() {
+		return recname;
+	}
+	public void setRecname(String recname) {
+		this.recname = recname;
+	}
+	public String getRecaddress() {
+		return recaddress;
+	}
+	public void setRecaddress(String recaddress) {
+		this.recaddress = recaddress;
 	}
 
 }

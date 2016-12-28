@@ -153,34 +153,56 @@ public class WaiterClerk extends Clerk {
 		sql = safeClerk.getDataBase().sq;
 		sql = sql.split("values")[0];
 		sql = sql.replace("id,", "");
-		sql = sql.replace("about,", "");
+		sql = sql.replace(",id", "");
 		Buybus condition = new Buybus();
-		Buybus col = new Buybus();
 		condition.setWho(safeClerk.userId);
-		col.setName("1");
-		col.setCount(1);
-		col.setPrice(1);
-		col.setWho("1");
-		col.setAlias("1");
-		col.setTime("");
-		safeClerk.getDataBase().find(condition, col);
+		safeClerk.getDataBase().find(condition, new Buybus());
 		String sql2 = safeClerk.getDataBase().sq;
-		sql2 = sql2.replace("time", "'" + df.format(new Date()) + "'");
-		sql2 = sql2.replace("select", "select " + number + ",");
+		String sql3=sql.split("\\(")[1];
+		sql3=" "+sql3.split("\\)")[0]+" ";
+		sql3=sql3.replace("num", number+"");
+		System.out.println("===="+sql3+"===");
+		sql2 = sql2.replace("*",sql3);
 		sql2 = sql + sql2;
 		System.out.println(sql2);
 		int i = safeClerk.getDataBase().run( sql2);
+		if(i<=0)
+			return 0;
 		safeClerk.getDataBase().status = true;
-		return i;
+		if(i>0)
+		{
+			Buybus clearBuybus=new Buybus();
+			clearBuybus.setWho(safeClerk.userId);
+			safeClerk.getDataBase().delete(clearBuybus);
+		}
+		return number;
 	}
 
 	public int delOrders(int num) {
 		Orders condition = new Orders();
 		condition.setWho(safeClerk.userId);
 		condition.setNum(num);
+		Cool con = new Cool();
+		con.setWho(safeClerk.userId);
+		con.setNum(num);
+		int s=safeClerk.getDataBase().delete(con);
 		int i = safeClerk.getDataBase().delete(condition);
 		System.out.println(i);
 		return i;
 
+	}
+	public int updateCoolAddress(ArrayList<String> rec,int num)
+	{
+		Cool address=new Cool();
+		Cool where=new Cool();
+		where.setWho(safeClerk.userId);
+		where.setNum(num);
+		address.setRecname(rec.get(0));
+		address.setRecnum(rec.get(1));
+		address.setRecaddress(rec.get(2));
+		int i=safeClerk.getDataBase().update(where, address);
+		if(i>0)
+			return i;
+		return 0;
 	}
 }

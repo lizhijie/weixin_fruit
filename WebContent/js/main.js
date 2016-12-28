@@ -318,7 +318,6 @@ function buybus_xuanran()
 	var my_content;
 	var this_content;
 	$.getJSON('./json.jsp?pages=BuyBus', function(data){
-		the_data=data;
 		my_content= $("#buybus_parent").find("#buybus_child:first-child");
 		$("#buybus_parent").text(" ");
 		for(var i = 0;i < data.length; i++) {
@@ -374,6 +373,14 @@ function buybus_xuanran()
 			this_content=null;
 		}
 		buybus_total();
+		$("#clear_buybus").on(
+				'click',
+				function() {
+					$.getJSON('./json.jsp?pages=Orders&&buy=w',function(data){
+						//if(data[0]!=0)
+					window.pageManager.go('aorder>'+data[0]);
+				});
+				});
 		});
 	//$("#buybus_parent #buybus_child:first-child").hide();
 }
@@ -390,4 +397,124 @@ function buybus_total()
        
     });
 	$("#total").text(cou*1);
+}
+
+function orders()
+{
+	var orders_goods=$('#orders_goods').find('.weui-form-preview__item').clone();
+	$('#orders_goods').find('.weui-form-preview__item').remove();
+	var one_orders=$('#one_orders').clone();
+	//var content=$('#one_orders').clone();
+	var parent=$('#orders_parent');
+	$('#one_orders').remove();
+	$.getJSON('./json.jsp?pages=Orders', function(bigdata){
+		data=bigdata[0];
+		var f;
+		var k;
+		 $.each(data,function(num,value){
+			 //alert(num);
+			 //alert(value[0].name);
+			 f=one_orders.clone();
+			 f.find("#orders_num").text(num);
+			 var result=0;
+			 for(var i = 0;i < value.length; i++) {
+				 k=orders_goods.clone();
+				 k.find("#orders_count").text(value[i].count);
+				 k.find("#orders_price").text(value[i].price);
+				 k.find("#orders_name").text(value[i].name);
+				 f.find("#orders_goods").append(k);
+				 result=value[i].price*value[i].count+result*1;
+			 }
+			 f.find("#orders_total").text(result);
+			 del=f.find("#orders_del");
+			 del.next().on(
+						'click',
+						function() {
+							self=$(this);
+							window.pageManager.go("aorder>"+self.parent().parent().find("#orders_num").text());
+						});
+			 del.on(
+						'click',
+						function() {
+							//$.ajaxSettings.async = false; 
+							self=$(this);
+							my_parent=self.parent().parent();
+							//alert(my_parent.find("#orders_num").text());
+							$.getJSON('./json.jsp?pages=Orders&&delNum='+my_parent.find("#orders_num").text(), function(mydata){
+								if(mydata[0]==1)
+							{
+									my_parent.next().remove();
+									my_parent.remove();
+							}
+							});				
+	});
+			 parent.prepend("<br>");
+			 parent.prepend(f);
+		 });
+		// parent.append(content);
+	});
+}
+function aorder(){
+	$.getJSON('./json.jsp?pages=Orders&&num='+mylocal(1), function(bigvalue){
+		value=bigvalue[0];
+		cool=bigvalue[1];
+		temp=$("#aorder_goods").find(".weui-form-preview__item");
+		aorder_goods=temp.clone();
+		temp.remove();
+		 $("#aorder_num").text(value[0].num);
+		 $("#aorder_time").text(cool[0].time);
+		 $("#aorder_recname").text(cool[0].recname);
+		 $("#aorder_recnum").text(cool[0].recnum);
+		 $("#aorder_recaddress").text(cool[0].recaddress);
+		 var result=0;
+		 for(var i = 0;i < value.length; i++) {
+			 k=aorder_goods.clone();
+			 k.find("#aorder_count").text(value[i].count);
+			 k.find("#aorder_price").text(value[i].price);
+			 k.find("#aorder_name").text(value[i].name);
+			 result=value[i].price*value[i].count+result*1;
+			 $("#aorder_goods").append(k);
+		 }
+		$("#aorder_total").text(result);	
+	});
+	
+	
+	// android
+    $(function(){
+        var $address = $('#address');
+        var $androidMask = $address.find('.weui-mask');
+        var $add_input = $('#add_input');
+        $("#change_address").on('click', function(){
+        	recname=$("#aorder_recname").text();
+   		 recnum=$("#aorder_recnum").text();
+   		 recaddress=$("#aorder_recaddress").text();
+   		 
+        	$address.find("#address_recname").attr('value',recname);
+        	$address.find("#address_recnum").attr('value',recnum);
+        	$address.find("#address_recaddress").text(recaddress);
+            $address.fadeIn(200);
+            $add_input.on('click',function(){
+            	inputname=$address.find("#address_recname").val();
+            	inputnum=$address.find("#address_recnum").val();
+            	inputaddress=$address.find("#address_recaddress").val();
+            	$.getJSON('./json.jsp?pages=Orders&&num='+mylocal(1),{"recname":inputname,"recnum":inputnum,"recaddress":inputaddress,"updateaddress":"true"}, function(boolvalue){
+            	//alert(boolvalue);
+            	if((boolvalue[0]*1)==1)
+            		{
+            	$("#aorder_recname").text(inputname);
+          		$("#aorder_recnum").text(inputnum);
+          		$("#aorder_recaddress").text(inputaddress);
+            		}
+            	});
+            	$address.fadeOut(200);
+            });
+            $androidMask.on('click',function () {
+                $address.fadeOut(200);
+            });
+        });
+    });
+}
+function mine()
+{
+	
 }

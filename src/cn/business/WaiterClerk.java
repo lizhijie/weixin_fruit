@@ -11,6 +11,7 @@ import cn.data.table.Buybus;
 import cn.data.table.Cool;
 import cn.data.table.Goods;
 import cn.data.table.Orders;
+import cn.data.table.Receiver;
 
 public class WaiterClerk extends Clerk {
 	SafeClerk safeClerk;
@@ -124,7 +125,21 @@ public class WaiterClerk extends Clerk {
 
 	}
 
+	
 	public int toOrders() {
+		ShowClerk showclerk=new ShowClerk(this.safeClerk);
+		ArrayList<Receiver> recs=null;
+		recs=showclerk.getUserAddress();
+		String recaddress="";
+		String recnum="";
+		String recname="";
+		if(recs!=null)
+			if(recs.size()>0)
+			{
+				recaddress=recs.get(0).getRecaddress();
+				recname=recs.get(0).getRecname();
+				recnum=recs.get(0).getRecnum();
+			}
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String sql = null;
 		Cool cool = new Cool();
@@ -133,6 +148,9 @@ public class WaiterClerk extends Clerk {
 		cool.setStatus(1);
 		cool.setTime(df.format(new Date()));
 		cool.setWho(safeClerk.userId);
+		cool.setRecaddress(recaddress);
+		cool.setRecnum(recnum);
+		cool.setRecname(recname);
 		safeClerk.getDataBase().insert(cool);
 		coolWhere.setWho(safeClerk.userId);
 		coolCol.setNum(1);

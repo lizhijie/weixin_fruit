@@ -1,0 +1,29 @@
+{
+    "button": [
+        {
+            "type": "click", 
+            "name": "今日歌曲", 
+            "key": "V1001_TODAY_MUSIC"
+        }, 
+        {
+            "name": "菜单", 
+            "sub_button": [
+                {
+                    "type": "view", 
+                    "name": "搜索", 
+                    "url": "http://www.soso.com/"
+                }, 
+                {
+                    "type": "view", 
+                    "name": "水果小店", 
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx778e2410cfa1d2c9&redirect_uri=http%3A%2F%2Flizhijies.cn%2Findex.jsp&response_type=code&scope=snsapi_base&state=123&connect_redirect=1#wechat_redirect"
+                }, 
+                {
+                    "type": "click", 
+                    "name": "赞一下我们", 
+                    "key": "V1001_GOOD"
+                }
+            ]
+        }
+    ]
+}

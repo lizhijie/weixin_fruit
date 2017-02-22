@@ -276,6 +276,7 @@ function get_goods()
 	
 	
 })
+bar("bar_home");
 };
 function xuanran(list,oneData){
 	list.find("h4").text(oneData.name);
@@ -311,6 +312,7 @@ function buybus()
 		{
 		buybus_xuanran();
 		}
+	bar("bar_buybus");
 }
 
 function buybus_xuanran()
@@ -453,6 +455,7 @@ function orders()
 		 });
 		// parent.append(content);
 	});
+	bar("bar_orders");
 }
 function aorder(){
 	$.getJSON('./json.jsp?pages=Orders&&num='+mylocal(1), function(bigvalue){
@@ -513,8 +516,15 @@ function aorder(){
             });
         });
     });
+    bar("bar_orders");
 }
 function mine()
 {
-	
+	bar("bar_mine");	
+}
+function bar(bar_name)
+{
+	$("#"+bar_name).addClass('weui-bar__item_on').siblings(
+	'.weui-bar__item_on').removeClass(
+	'weui-bar__item_on');	
 }

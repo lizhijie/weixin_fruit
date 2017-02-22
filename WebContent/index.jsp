@@ -26,24 +26,24 @@
 
 				<div class="page_ft weui-footer_fixed-bottom tabbar js_show">
 					<div class="weui-tabbar">
-						<a href="javascript:;" class="weui-tabbar__item weui-bar__item_on" data-id="home">
+						<a href="javascript:;" class="weui-tabbar__item weui-bar__item_on" data-id="home" id="bar_home">
 							<img src="./images/icon_tabbar.png" alt=""
 							class="weui-tabbar__icon">
 							<p class="weui-tabbar__label">鲜果</p>
-						</a> <a href="javascript:;" class="weui-tabbar__item" data-id="buybus"> <img
+						</a> <a href="javascript:;" class="weui-tabbar__item" data-id="buybus" id="bar_buybus"> <img
 							src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
 							<p class="weui-tabbar__label" >果篮</p>
-						</a> <a href="javascript:;" class="weui-tabbar__item" data-id="orders"> <img
+						</a> <a href="javascript:;" class="weui-tabbar__item" data-id="orders" id="bar_orders"> <img
 							src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
 							<p class="weui-tabbar__label">订单</p>
-						</a> <a href="javascript:;" class="weui-tabbar__item" data-id="mine"> <img
+						</a> <a href="javascript:;" class="weui-tabbar__item" data-id="mine" id="bar_mine"> <img
 							src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
 							<p class="weui-tabbar__label">信息</p>
 						</a>
 					</div>
 				</div>
 			</div>
-<script type="text/javascript">
+<script type="text/javascript" class="page__ft">
 		$(function() {	
 			$('.weui-tabbar__item').on(
 					'click',
@@ -355,32 +355,49 @@ aorder();
                 <div class="weui-cell__bd">
                     <input class="weui-input" type="number" pattern="[0-9]*" placeholder="用于网页登陆名">
                 </div>
+  <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary" id="buybus_buttons">确认昵称</a>
             </div>
-<div class="weui-cells__title">收货地址</div>
-	<div class="weui-cells weui-cells_radio">
-            <label class="weui-cell weui-check__label" for="x11">
-                <div class="weui-cell__bd">
-                    <p>cell standard</p>
-                </div>
-                <div class="weui-cell__ft">
-                    <input type="radio" class="weui-check" name="radio1" id="x11">
-                    <span class="weui-icon-checked"></span>
-                </div>
-            </label>
-            <label class="weui-cell weui-check__label" for="x12">
+<div class="weui-cells__title">默认收货信息</div>
+	<div class="weui-form-preview__bd">
+				
+                
+				
+				<div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span>默认收件人:</span></label>
+                    <span class="weui-form-preview__value"><span id="aorder_recname">李志杰</span></span>
+               	</div>
+				<div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span>默认手机号码:</span></label>
+                    <span class="weui-form-preview__value"><span id="aorder_recnum">1551693792</span></span>
+               	</div>
+				<div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span>默认收货地址:</span></label>
+                    <span class="weui-form-preview__value"><span id="aorder_recaddress">河南省太康县朱口镇官路沿</span></span>
+               	</div>
+     </div>
+<a href="javascript:;" class="weui-btn  weui-btn_primary" id="buybus_buttons">修改默认收货信息</a>
 
-                <div class="weui-cell__bd">
-                    <p>cell standard</p>
-                </div>
-                <div class="weui-cell__ft">
-                    <input type="radio" name="radio1" class="weui-check" id="x12" checked="checked">
-                    <span class="weui-icon-checked"></span>
-                </div>
-            </label>
-            <a href="javascript:void(0);" class="weui-cell weui-cell_link">
-                <div class="weui-cell__bd">添加收货地址</div>
-            </a>
-        </div>
+<div class="weui-cells__title">商家留言</div>
+  <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span>你的货物已经到达</span></label>
+                    <span class="weui-form-preview__value"><span id="aorder_recnum">17-06-03 15:20</span></span>
+               	</div>
+   <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span>你的货物已经到达</span></label>
+                    <span class="weui-form-preview__value"><span id="aorder_recnum">17-06-03 15:20</span></span>
+               	</div>
+   <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span>你的货物已经到达</span></label>
+                    <span class="weui-form-preview__value"><span id="aorder_recnum">17-06-03 15:20</span></span>
+               	</div>
+   <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span>你的货物已经到达</span></label>
+                    <span class="weui-form-preview__value"><span id="aorder_recnum">17-06-03 15:20</span></span>
+               	</div>
+   <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label"><span>你的货物已经到达</span></label>
+                    <span class="weui-form-preview__value"><span id="aorder_recnum">17-06-03 15:20</span></span>
+               	</div>
 </div>
 <script type="text/javascript">
 mine();

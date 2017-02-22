@@ -164,8 +164,23 @@ public class ShowClerk extends Clerk {
 	}
 
 	public ArrayList<Receiver> getUserAddress(){
-		return null;
-		
+		ArrayList<Receiver> receivers = new ArrayList<Receiver>();
+		ArrayList<Object> ob = new ArrayList<Object>();
+		Receiver rec=new Receiver();
+		Receiver col=new Receiver();
+		rec.setWeixin(safeClerk.userId);
+		ret=safeClerk.getDataBase().find(rec, col);
+		try {
+			ob= safeClerk.getDataBase().retTo(new Receiver(), ret);
+			for (int i = 0; i < ob.size(); i++)
+				receivers.add((Receiver) ob.get(i));
+		} catch (NumberFormatException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		for(int i=0;i<receivers.size();i++)
+		System.out.println("查询收获地址结果为"+receivers.get(i).getRecaddress());	
+		return receivers;
 		
 	}
 

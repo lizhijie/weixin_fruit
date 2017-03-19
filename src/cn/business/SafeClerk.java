@@ -2,9 +2,12 @@ package cn.business;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import cn.data.database.DB;
 import cn.data.database.DataBase;
+import cn.data.table.Goods;
+import cn.data.table.User;
 
 public class SafeClerk extends Clerk {
 	private DB db1 = null;
@@ -14,6 +17,9 @@ public class SafeClerk extends Clerk {
 
 	public SafeClerk(String userId) {
 		this.userId = userId;
+		if(!exist()&&isSafeUser())
+			register();
+		
 	}
 
 	
@@ -87,5 +93,45 @@ public class SafeClerk extends Clerk {
 		if (num > 200000000)
 			return false;
 		return true;
+	}
+	
+	public boolean exist()
+	{
+		ArrayList<Object> ob = new ArrayList<Object>();
+		User user=new User();
+		user.setWeixin(userId);
+		try {
+			ob=this.getDataBase().retTo(new User(),this.getDataBase().find(user, new User()));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(ob.size()>0)
+		{
+			
+			System.out.println(userId+"------>exist");
+			return true;
+		}
+		else
+		{
+			System.out.println(userId+"------>not exist");
+			return false;
+		}
+	}
+	public boolean register()
+	{
+		User user=new User();
+		user.setWeixin(userId);
+		user.setUsername("");
+		user.setStatus(1);
+		user.setTime(scanTime());
+		int i=0;
+		i=this.getDataBase().insert(user);
+		if(i>0)
+		return true;
+		return false;
 	}
 }

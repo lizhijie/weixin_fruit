@@ -4,6 +4,7 @@ public class User {
 	private int id;
 	private String username;
 	private String md5;
+	private String weixin;
 	private int status;
 	private String time;
 
@@ -45,6 +46,14 @@ public class User {
 
 	public void setTime(String time) {
 		this.time = time;
+	}
+
+	public String getWeixin() {
+		return weixin;
+	}
+
+	public void setWeixin(String weixin) {
+		this.weixin = weixin;
 	}
 
 }

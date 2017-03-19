@@ -16,8 +16,10 @@ public class DB {
     public static final String url = "jdbc:mysql://127.0.0.1/shangcheng?characterEncoding=utf-8";  
     public static final String name = "com.mysql.jdbc.Driver";  
     public static final String user = "root";  
-    //public static final String password = ""; 
     public static final String password = "2468li";
+    
+    
+    //public static final String password = ""; 
   
     public Connection conn = null;  
     public PreparedStatement pst = null;  

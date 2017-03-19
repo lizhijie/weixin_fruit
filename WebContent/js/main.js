@@ -303,7 +303,8 @@ function buybus()
 	if(mylocal(1))
 		{
 	$.getJSON('./json.jsp?pages=BuyBus&&addAlias='+mylocal(1), function(data){
-		location.hash=mylocal(0);
+		//location.hash=mylocal(0);//备用替换下句不可后退
+		buybus_xuanran();
 		//setTimeout("location.hash=mylocal(0);",1);
 		});
 	

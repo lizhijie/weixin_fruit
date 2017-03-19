@@ -11,12 +11,12 @@
                 {
                     "type": "view", 
                     "name": "ËÑË÷", 
-                    "url": "http://www.soso.com/"
+                    "url": "http://www.baidu.com/"
                 }, 
                 {
                     "type": "view", 
                     "name": "Ë®¹ûÐ¡µê", 
-                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx778e2410cfa1d2c9&redirect_uri=http%3A%2F%2Flizhijies.cn%2Findex.jsp&response_type=code&scope=snsapi_base&state=123&connect_redirect=1#wechat_redirect"
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx778e2410cfa1d2c9&redirect_uri=http%3A%2F%2Ftest.lizhijies.cn%2Findex.jsp&response_type=code&scope=snsapi_base&state=123&connect_redirect=1#wechat_redirect"
                 }, 
                 {
                     "type": "click", 

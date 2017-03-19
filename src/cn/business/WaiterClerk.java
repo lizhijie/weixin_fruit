@@ -72,7 +72,7 @@ public class WaiterClerk extends Clerk {
 		add.setName(aGoods.get(0).getName());
 		add.setPrice(aGoods.get(0).getPrice());
 		add.setCount(1);
-		add.setTime("2016-11-19 15:49:40");
+		add.setTime(scanTime());
 		add.setWho(safeClerk.userId);
 		int i = safeClerk.getDataBase().insert(add);
 		System.out.println(i);
@@ -140,13 +140,12 @@ public class WaiterClerk extends Clerk {
 				recname=recs.get(0).getRecname();
 				recnum=recs.get(0).getRecnum();
 			}
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String sql = null;
 		Cool cool = new Cool();
 		Cool coolWhere = new Cool();
 		Cool coolCol = new Cool();
 		cool.setStatus(1);
-		cool.setTime(df.format(new Date()));
+		cool.setTime(scanTime());
 		cool.setWho(safeClerk.userId);
 		cool.setRecaddress(recaddress);
 		cool.setRecnum(recnum);

@@ -2,6 +2,8 @@
  * Modified by bear on 2016/9/7.
  */
 var the_data;
+var orders_goods=null;
+var one_orders=null;
 $(function () {
     var pageManager = {
         $container: $('#container'),
@@ -260,6 +262,7 @@ function agoods()
 	$('#goodsname').text(data.name);
 	$('#per').next().text(data.about);
 	$('#des').next().text(data.desxml);
+	$('#img_des').attr("src","./file.jsp?pages=File&&getimg="+data.alias+"-des.jpg");
 	$('#agoodsbutton').attr("href","javascript:window.pageManager.go('buybus>"+data.alias+"');");
 	});
 }
@@ -281,6 +284,7 @@ bar("bar_home");
 function xuanran(list,oneData){
 	list.find("h4").text(oneData.name);
 	list.find("p").text(oneData.about);
+	list.find("img").attr("src","./file.jsp?pages=File&&getimg="+oneData.alias+".jpg");
 	list.find("#price").text("现价")
 	.next().text("￥"+oneData.price+"元")
 	.next().text("原价: 40 元");
@@ -375,6 +379,7 @@ function buybus_xuanran()
 			$("#buybus_parent").prepend(this_content);
 			this_content=null;
 		}
+		$("#buybus_parent").show();
 		buybus_total();
 		$("#clear_buybus").on(
 				'click',
@@ -404,13 +409,19 @@ function buybus_total()
 
 function orders()
 {
-	var orders_goods=$('#orders_goods').find('.weui-form-preview__item').clone();
+        if(orders_goods==null&&one_orders==null)
+        	{
+	orders_goods=$('#orders_goods').find('.weui-form-preview__item').clone();
 	$('#orders_goods').find('.weui-form-preview__item').remove();
-	var one_orders=$('#one_orders').clone();
+	one_orders=$('#one_orders').clone();
+        	}
 	//var content=$('#one_orders').clone();
 	var parent=$('#orders_parent');
 	$('#one_orders').remove();
-	$.getJSON('./json.jsp?pages=Orders', function(bigdata){
+	parent.empty();
+	var status=$('.weui-bar__item_on').attr('status')*1;
+	//alert(status);
+	$.getJSON('./json.jsp?pages=Orders&status='+status, function(bigdata){
 		data=bigdata[0];
 		var f;
 		var k;
@@ -465,10 +476,34 @@ function aorder(){
 		temp=$("#aorder_goods").find(".weui-form-preview__item");
 		aorder_goods=temp.clone();
 		temp.remove();
+		var sta="订单异常";
+		switch(cool[0].status)
+		{
+		case 1:
+			sta="待付款";
+		  break;
+		case 2:
+			sta="待发货";
+			$("#aorder_next").text('催单');
+		  break;
+		case 3:
+			sta="已发货";
+			$("#aorder_next").text('确认收货');
+		  break;
+		case 4:
+			sta="已完成";
+			$("#aorder_next").text('再来一单');
+		  break;
+		default:
+			sta="订单异常";
+		$("#aorder_next").text('删除订单');
+		}
 		 $("#aorder_num").text(value[0].num);
 		 $("#aorder_time").text(cool[0].time);
 		 $("#aorder_recname").text(cool[0].recname);
 		 $("#aorder_recnum").text(cool[0].recnum);
+		 $("#aorder_status").text(sta);
+		 $("#aorder_status").attr('status',cool[0].status);
 		 $("#aorder_recaddress").text(cool[0].recaddress);
 		 var result=0;
 		 for(var i = 0;i < value.length; i++) {
@@ -488,6 +523,32 @@ function aorder(){
         var $address = $('#address');
         var $androidMask = $address.find('.weui-mask');
         var $add_input = $('#add_input');
+        
+        $("#aorder_next").on('click', function(){
+        	var aorder_status=$("#aorder_status").attr('status')*1;
+        	if(aorder_status==1)
+        	{
+        		
+        	}
+        	else if(aorder_status==2)
+        	{
+        		
+        	}
+        	else  if(aorder_status==3)
+        	{
+        		
+        	}
+        	else  if(aorder_status==4)
+        	{
+        		
+        	}
+        	else
+        	{
+        		
+        	}
+        		alert(aorder_status);
+        	//$.getJSON('./json.jsp?pages=Orders&&num='+mylocal(1)+'&&status=', function(bigvalue){});
+        });	
         $("#change_address").on('click', function(){
         	recname=$("#aorder_recname").text();
    		 recnum=$("#aorder_recnum").text();
@@ -519,8 +580,50 @@ function aorder(){
     });
     bar("bar_orders");
 }
+
 function mine()
 {
+	$.getJSON('./json.jsp?pages=Mine', function(defrec){
+		 $("#default_recname").text(defrec.recname);
+		 $("#default_recnum").text(defrec.recnum);
+		 $("#default_recaddress").text(defrec.recaddress);
+	});
+	
+	$(function(){
+        var $address = $('#address');
+        var $androidMask = $address.find('.weui-mask');
+        var $add_input = $('#add_input');
+        $("#default_button").on('click', function(){
+        	recname=$("#default_recname").text();
+   		 recnum=$("#default_recnum").text();
+   		 recaddress=$("#default_recaddress").text();
+   		 
+        	$address.find("#address_recname").attr('value',recname);
+        	$address.find("#address_recnum").attr('value',recnum);
+        	$address.find("#address_recaddress").text(recaddress);
+            $address.fadeIn(200);
+            $add_input.on('click',function(){
+            	inputname=$address.find("#address_recname").val();
+            	inputnum=$address.find("#address_recnum").val();
+            	inputaddress=$address.find("#address_recaddress").val();
+            	$.getJSON('./json.jsp?pages=Mine&&num='+mylocal(1),{"recname":inputname,"recnum":inputnum,"recaddress":inputaddress}, function(boolvalue){
+            	//alert(boolvalue);
+            	if((boolvalue*1)>=1)
+            		{
+            	$("#default_recname").text(inputname);
+          		$("#default_recnum").text(inputnum);
+          		$("#default_recaddress").text(inputaddress);
+            		}
+            	});
+            	$address.fadeOut(200);
+            });
+            $androidMask.on('click',function () {
+                $address.fadeOut(200);
+            });
+        });
+    });
+	
+	
 	bar("bar_mine");	
 }
 function bar(bar_name)

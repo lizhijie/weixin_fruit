@@ -1,10 +1,14 @@
 package cn.bean;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import cn.weixin.Weixin;
 
 public class Control {
 	Bean bean;

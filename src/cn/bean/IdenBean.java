@@ -5,11 +5,12 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class IdenBean {
-	public IdenBean()
-{
-super();
-}
+public class IdenBean extends Bean{
+
+	public IdenBean(HttpServletRequest request, HttpServletResponse response) {
+		super(request, response);
+		// TODO Auto-generated constructor stub
+	}
 	private String getEchostr() {
 		return echostr;
 	}
@@ -17,7 +18,7 @@ super();
 		this.echostr = echostr;
 	}
 	String echostr;
-	public void go(HttpServletRequest request, HttpServletResponse response) throws IOException
+	public void go() throws IOException
 	{
 		setEchostr(request.getParameter("echostr")); 
 		 if (echostr != null && echostr.length() > 1) {  

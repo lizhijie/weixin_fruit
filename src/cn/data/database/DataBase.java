@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.debug.MyDebug;
+
 public class DataBase {
 	public boolean status=true;
 	public String sq="";
@@ -57,7 +59,7 @@ public class DataBase {
 				sql += vList.get(i) + ")";
 			}
 		}
-		System.out.println(sql);
+		MyDebug.println(this,sql);
 		int i = 0;
 		sq=sql;
 		if(status){
@@ -71,7 +73,7 @@ public class DataBase {
 		String sql = "select"+column(col)+" from " + getTableName(condition)
 				+ where(condition);
 
-		System.out.print(sql);
+		MyDebug.println(this,sql);
 		sq=sql;
 		if(status){
 		try {
@@ -91,7 +93,7 @@ public class DataBase {
 		String sql = "delete from " + getTableName(condition)
 				+ where(condition);
 
-		System.out.println(sql);
+		MyDebug.println(this,sql);
 		sq=sql;
 		if(status){
 			i=run(sql);
@@ -102,7 +104,7 @@ public class DataBase {
 	public int update(Object condition, Object sqlSet) {
 		String sql = "update " + getTableName(sqlSet) + set(sqlSet)
 				+ where(condition);
-		System.out.println(sql);
+		MyDebug.println(this,sql);
 		int i = 0;
 		sq=sql;
 		if(status){
@@ -133,7 +135,7 @@ public class DataBase {
 		if (sql.replace(" ", "").contentEquals("where")) {
 			sql = "";
 		}
-		System.out.println(sql);
+		MyDebug.println(this,sql);
 		return sql;
 
 	}
@@ -160,7 +162,7 @@ public class DataBase {
 		if (sql.replace(" ", "").contentEquals("set")) {
 			sql = "";
 		}
-		System.out.println(sql);
+		MyDebug.println(this,sql);
 		return sql;
 
 	}
@@ -187,7 +189,7 @@ public class DataBase {
 		if (sql.replace(" ", "").contentEquals("")) {
 			sql = " *";
 		}
-		//System.out.println(sql+"--->>col");
+		//MyDebug.println(this,sql+"--->>col");
 		return sql;
 
 	}
@@ -201,7 +203,7 @@ public class DataBase {
 	public ArrayList<Object> retTo(Object object, ResultSet ret)
 			throws NumberFormatException, SQLException {
 		ArrayList<Object> agoods = new ArrayList<Object>();
-		// System.out.println(ret.);
+		// MyDebug.println(this,ret.);
 		DataReflect refl=new DataReflect(object);
 		String tableName=refl.getTableName();
 		List<String> mList=refl.getmList();
@@ -223,7 +225,7 @@ public class DataBase {
 						.toLowerCase();
 				try {
 					t1 = setMethods.get(i).getParameterTypes();
-					//System.out.println(t1[0]);
+					//MyDebug.println(this,t1[0]);
 					try{
 						if(ret.findColumn(fieldName)>0)
 					if (t1[0].toString().contentEquals("int"))
@@ -246,5 +248,16 @@ public class DataBase {
 			agoods.add(myObject);
 		}
 		return agoods;
+	}
+	public int getRowCount(ResultSet rs)
+	{
+		try {
+			rs.last();
+			return rs.getRow();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
 	}
 }

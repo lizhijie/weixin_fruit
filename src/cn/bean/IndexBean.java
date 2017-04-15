@@ -1,6 +1,7 @@
 package cn.bean;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import com.google.gson.Gson;
 import cn.business.*;
 import cn.data.database.DataBase;
 import cn.data.table.*;
+import cn.weixin.Weixin;
 
 public class IndexBean extends Bean {
 	public IndexBean(HttpServletRequest request, HttpServletResponse response) {
@@ -19,7 +21,7 @@ public class IndexBean extends Bean {
 	}
 	String name;
 	String userId;
-
+	String userName;
 	public String getUserId() {
 		return userId;
 	}
@@ -40,16 +42,18 @@ public class IndexBean extends Bean {
 
 	public void go() throws ServletException, IOException {
 		//long startTime = System.currentTimeMillis();
+//		InputStream in=request.getInputStream();
+//		int tempbyte;
+//		byte[] b = new byte[4096];
+//		while((tempbyte=in.read(b)) != -1){
+//		System.out.write(b,0,tempbyte);
+//		}
 		this.setName(request.getParameter("li"));
-		String echostr = request.getParameter("echostr");
-		if (echostr != null && echostr.length() > 1) {
-			this.request.getRequestDispatcher("/view/iden.jsp").forward(request,
-					response);
-		}
 		//DataBase.status=false;
 		String alias=request.getParameter("alias");
 		setUserId(login());
 		Shop shop = new Shop(getUserId());
+		setUserName(shop.getSafeClerk().getUserName());
 		ArrayList<Goods> aGoods = new ArrayList<Goods>();
 		if(alias!=null)
 		{
@@ -63,8 +67,54 @@ public class IndexBean extends Bean {
 		Gson gson = new Gson(); 
 		setJson(gson.toJson(aGoods));
 		}
-		//System.out.println("lizhijie");
+		//MyDebug.println(this,"lizhijie");
 		//long startTime = System.currentTimeMillis();
-		//long endTime = System.currentTimeMillis();System.out.println("程序运行时间："+(endTime-startTime)+"ms");
+		//long endTime = System.currentTimeMillis();MyDebug.println(this,"程序运行时间："+(endTime-startTime)+"ms");
 	}
+
+	public String getUserName() {
+		if(userName!=null)
+			if(userName!="")
+				return userName;
+		return "未设置";
+		
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	@Override
+	public boolean init() {
+		// TODO Auto-generated method stub
+		super.init();
+		if(Weixin.check(request))
+		{
+			try {
+				request.getRequestDispatcher("/file.jsp?pages=Weixin").forward(request,response);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+		}
+		String echostr = request.getParameter("echostr");
+		if (echostr != null && echostr.length() > 1) {
+			try {
+				this.request.getRequestDispatcher("/file.jsp?pages=Iden").forward(request,
+						response);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+		}
+		return true;
+	}
+
 }

@@ -2,7 +2,7 @@
     "button": [
         {
             "type": "click", 
-            "name": "今日歌曲", 
+            "name": "水果小店", 
             "key": "V1001_TODAY_MUSIC"
         }, 
         {

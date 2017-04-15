@@ -92,7 +92,7 @@ public void setScope(String scope) {
         //∑¢ÀÕ POST «Î«Û
        //String sr=HttpRequest.sendPost("http://localhost:8080/weixin", "key=123&v=456");
        //System.out.println(sr);
-    }
+	}
 	
 	private static Map<String, String> parseData(String data){
 	       GsonBuilder gb = new GsonBuilder();

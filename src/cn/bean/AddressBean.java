@@ -27,7 +27,7 @@ public class AddressBean extends Bean {
 		String recNum=request.getParameter("recnum");
 		String recName=request.getParameter("recname");
 		String updateAddress=request.getParameter("updateaddress");
-		//System.out.println(recAddress+"---"+recNum+"-----"+recName);
+		//MyDebug.println(this,recAddress+"---"+recNum+"-----"+recName);
 		String str=request.getParameter("delNum");
 		String buy=request.getParameter("buy");
 		String ordersNum=request.getParameter("num");
@@ -76,7 +76,7 @@ public class AddressBean extends Bean {
 		{
 			ArrayList<Orders> orders = new ArrayList<Orders>();
 			ArrayList<Object> obj = new ArrayList<Object>();
-			obj=shop.orders();
+			obj=shop.orders(0);
 			orders=(ArrayList<Orders>) obj.get(0);
 			Map map = new HashMap();
 			for(int i=0;i<orders.size();i++)

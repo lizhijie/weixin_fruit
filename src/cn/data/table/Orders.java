@@ -8,6 +8,7 @@ public class Orders{
 	private String name;
 	private String alias;
 	private int price;
+	private int status;
 
 
 	public int getNum() {
@@ -52,6 +53,14 @@ public class Orders{
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 }

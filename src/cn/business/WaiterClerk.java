@@ -12,6 +12,7 @@ import cn.data.table.Cool;
 import cn.data.table.Goods;
 import cn.data.table.Orders;
 import cn.data.table.Receiver;
+import cn.debug.MyDebug;
 
 public class WaiterClerk extends Clerk {
 	SafeClerk safeClerk;
@@ -28,7 +29,7 @@ public class WaiterClerk extends Clerk {
 		condition.setWho(safeClerk.userId);
 		condition.setAlias(alias);
 		int i = safeClerk.getDataBase().delete(condition);
-		System.out.println(i);
+		MyDebug.println(this,i+"");
 		return i;
 
 	}
@@ -75,7 +76,7 @@ public class WaiterClerk extends Clerk {
 		add.setTime(scanTime());
 		add.setWho(safeClerk.userId);
 		int i = safeClerk.getDataBase().insert(add);
-		System.out.println(i);
+		MyDebug.println(this,i+"");
 
 		return i;
 
@@ -112,12 +113,12 @@ public class WaiterClerk extends Clerk {
 		else {
 			return false;
 		}
-		System.out.println("jiajian->>"+buybus.get(0).getCount());
+		MyDebug.println(this,"jiajian->>"+buybus.get(0).getCount());
 		sqlSet.setCount(buybus.get(0).getCount() + p);
 		if (sqlSet.getCount() < 1)
 			return false;
 		int i = safeClerk.getDataBase().update(condition, sqlSet);
-		System.out.println(i);
+		MyDebug.println(this,i+"");
 		if (i > 0)
 			return true;
 		else
@@ -159,7 +160,7 @@ public class WaiterClerk extends Clerk {
 			ret.afterLast();
 			ret.last();
 			number = ret.getInt(1);
-			System.out.println(number);
+			MyDebug.println(this,number+"");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -178,10 +179,11 @@ public class WaiterClerk extends Clerk {
 		String sql3=sql.split("\\(")[1];
 		sql3=" "+sql3.split("\\)")[0]+" ";
 		sql3=sql3.replace("num", number+"");
-		System.out.println("===="+sql3+"===");
+		sql3=sql3.replace("status", 1+"");
+		MyDebug.println(this,"===="+sql3+"===");
 		sql2 = sql2.replace("*",sql3);
 		sql2 = sql + sql2;
-		System.out.println(sql2);
+		MyDebug.println(this,sql2);
 		int i = safeClerk.getDataBase().run( sql2);
 		if(i<=0)
 			return 0;
@@ -204,8 +206,8 @@ public class WaiterClerk extends Clerk {
 		con.setNum(num);
 		int s=safeClerk.getDataBase().delete(con);
 		int i = safeClerk.getDataBase().delete(condition);
-		System.out.println(i);
-		return i;
+		MyDebug.println(this,i+"");
+		return i+s;
 
 	}
 	public int updateCoolAddress(ArrayList<String> rec,int num)
@@ -220,6 +222,44 @@ public class WaiterClerk extends Clerk {
 		int i=safeClerk.getDataBase().update(where, address);
 		if(i>0)
 			return i;
+		return 0;
+	}
+
+	public int updateDefaultRec(String recname, String recnum, String recaddress) {
+		// TODO Auto-generated method stub
+		Receiver rec=new Receiver();
+		Receiver where=new Receiver();
+		where.setWeixin(safeClerk.userId);
+		rec.setRecname(recname);
+		rec.setRecnum(recnum);
+		rec.setRecaddress(recaddress);
+		int i=safeClerk.getDataBase().update(where, rec);
+		if(i>0)
+			return i;
+		return 0;
+	}
+	public int statusPlus(int num)
+	{
+		ArrayList<Cool> cool = new ArrayList<Cool>();
+		ArrayList<Object> obj = new ArrayList<Object>();
+		Cool ccol = new Cool();
+		Cool where = new Cool();
+		
+		ccol.setNum(1);
+		ccol.setTime("1");
+		ccol.setStatus(1);
+		where.setNum(num);
+		where.setWho(safeClerk.userId);
+		ret = safeClerk.getDataBase().find(where, ccol);
+		try {
+			obj = safeClerk.getDataBase().retTo(new Cool(), ret);
+		} catch (NumberFormatException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (int i = 0; i < obj.size(); i++)
+			cool.add((Cool) obj.get(i));
+		int i=cool.get(0).getStatus();
 		return 0;
 	}
 }

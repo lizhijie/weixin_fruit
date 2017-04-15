@@ -8,11 +8,13 @@ public class Shop {
 	protected SafeClerk safeClerk;
 	protected WaiterClerk waiter;
 	protected ShowClerk showClerk;
+	protected AdminClerk adminClerk;
 
 	public Shop(String userId) {
 		safeClerk = new SafeClerk(userId);
 		showClerk = new ShowClerk(safeClerk);
 		waiter = new WaiterClerk(safeClerk);
+		adminClerk=new AdminClerk(safeClerk);
 	}
 
 	public ArrayList<Goods> index() {
@@ -75,15 +77,15 @@ public class Shop {
 			return false;
 	}
 
-	public ArrayList<Object> orders() {
+	public ArrayList<Object> orders(int status) {
 		if (safeClerk.isSafeUser())
-			return showClerk.getUserOrders(0);
+			return showClerk.getUserOrders(0,status);
 		else
 			return new ArrayList<Object>();
 	}
 	public ArrayList<Object> getAOrders(int num) {
 		if (safeClerk.isSafeUser())
-			return showClerk.getUserOrders(num);
+			return showClerk.getUserOrders(num,0);
 		else
 			return new ArrayList<Object>();
 	}
@@ -122,5 +124,50 @@ public class Shop {
 				return 0;
 		} else
 			return 0;
+	}
+
+	public Receiver defalutRec() {
+		// TODO Auto-generated method stub
+		if (safeClerk.isSafeUser()) {
+			return showClerk.getUserAddress().get(0);
+		} else
+		return null;
+	}
+
+	public int updateDefaultRec(String recname, String recnum,
+			String recaddress) {
+		// TODO Auto-generated method stub
+		if (safeClerk.isSafeUser()) {
+			int i = waiter.updateDefaultRec(recname,recnum,recaddress);
+			if (i > 0)
+				return i;
+			else
+				return 0;
+		} else
+			return 0;
+}
+
+	public SafeClerk getSafeClerk() {
+		return safeClerk;
+	}
+
+	public void setSafeClerk(SafeClerk safeClerk) {
+		this.safeClerk = safeClerk;
+	}
+
+	public int addGoods(Goods goods) {
+		// TODO Auto-generated method stub
+		return adminClerk.addGoods(goods);
+	}
+
+	public int delGoods(String alias) {
+		// TODO Auto-generated method stub
+		return adminClerk.delGoods(alias);
+	}
+
+	public int updateGoods(Goods goods) {
+		return adminClerk.updateGoods(goods);
+		// TODO Auto-generated method stub
+		
 	}
 }

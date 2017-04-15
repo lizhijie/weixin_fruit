@@ -48,7 +48,7 @@ public DataReflect(Object object){
 			setMethods.add(method);
 			try {
 				// method.invoke(object, null);
-				//System.out.println(method.getName());
+				//MyDebug.println(this,method.getName());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

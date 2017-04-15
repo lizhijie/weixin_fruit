@@ -10,6 +10,7 @@ import cn.data.table.Cool;
 import cn.data.table.Goods;
 import cn.data.table.Orders;
 import cn.data.table.Receiver;
+import cn.debug.MyDebug;
 
 public class ShowClerk extends Clerk {
 	ResultSet ret = null;
@@ -38,7 +39,7 @@ public class ShowClerk extends Clerk {
 		// long startTime = System.currentTimeMillis();
 		ret = safeClerk.getDataBase().find(new Goods(), col);
 		// long endTime =
-		// System.currentTimeMillis();System.out.println("程序运行时间："+(endTime-startTime)+"ms");
+		// System.currentTimeMillis();MyDebug.println(this,"程序运行时间："+(endTime-startTime)+"ms");
 		try {
 			ob = safeClerk.getDataBase().retTo(new Goods(), ret);
 			for (int i = 0; i < ob.size(); i++)
@@ -69,7 +70,7 @@ public class ShowClerk extends Clerk {
 		col.setAbout("1");
 		ret = safeClerk.getDataBase().find(condi, col);
 		// long endTime =
-		// System.currentTimeMillis();System.out.println("程序运行时间："+(endTime-startTime)+"ms");
+		// System.currentTimeMillis();MyDebug.println(this,"程序运行时间："+(endTime-startTime)+"ms");
 		try {
 			ob = safeClerk.getDataBase().retTo(new Goods(), ret);
 			for (int i = 0; i < ob.size(); i++)
@@ -109,18 +110,21 @@ public class ShowClerk extends Clerk {
 		return buybus;
 	}
 
-	public ArrayList<Object> getUserOrders(int num) {
+	public ArrayList<Object> getUserOrders(int num,int status) {
 		ArrayList<Orders> order = new ArrayList<Orders>();
 		ArrayList<Object> ob = new ArrayList<Object>();
 		Orders col = new Orders();
 		col.setName("1");
 		// col.setAbout("1");
 		col.setAlias("1");
+		col.setStatus(1);
 		col.setCount(1);
 		col.setNum(1);
 		col.setPrice(1);
 		Orders where = new Orders();
 		where.setWho(safeClerk.userId);
+		if(status!=0)
+			where.setStatus(status);
 		if(num!=0)
 		{
 			where.setNum(num);
@@ -179,7 +183,7 @@ public class ShowClerk extends Clerk {
 			e1.printStackTrace();
 		}
 		for(int i=0;i<receivers.size();i++)
-		System.out.println("查询收获地址结果为"+receivers.get(i).getRecaddress());	
+		MyDebug.println(this,"查询收获地址结果为"+receivers.get(i).getRecaddress());	
 		return receivers;
 		
 	}

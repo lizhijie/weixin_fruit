@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import cn.data.database.DB;
 import cn.data.database.DataBase;
 import cn.data.table.Goods;
+import cn.data.table.Receiver;
 import cn.data.table.User;
+import cn.debug.MyDebug;
 
 public class SafeClerk extends Clerk {
 	private DB db1 = null;
 	private Connection con = null;
 	protected String userId;
+	protected String userName;
 	private DataBase database=null;
 
 	public SafeClerk(String userId) {
@@ -111,13 +114,13 @@ public class SafeClerk extends Clerk {
 		}
 		if(ob.size()>0)
 		{
-			
-			System.out.println(userId+"------>exist");
+			setUserName(((User) ob.get(0)).getUsername());
+			MyDebug.println(this,userId+"------>exist");
 			return true;
 		}
 		else
 		{
-			System.out.println(userId+"------>not exist");
+			MyDebug.println(this,userId+"------>not exist");
 			return false;
 		}
 	}
@@ -130,8 +133,25 @@ public class SafeClerk extends Clerk {
 		user.setTime(scanTime());
 		int i=0;
 		i=this.getDataBase().insert(user);
-		if(i>0)
+		Receiver receiver=new Receiver();
+		receiver.setWeixin(userId);
+		receiver.setRecname("нч");
+		receiver.setRecnum("нч");
+		receiver.setRecaddress("нч");
+		int k=0;
+		k=this.getDataBase().insert(receiver);
+		if(i>0&&k>0)
 		return true;
 		return false;
+	}
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

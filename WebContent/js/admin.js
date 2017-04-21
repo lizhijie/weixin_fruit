@@ -41,7 +41,7 @@ $(function () {
         go: function (to) {
         	var arr=new Array();     
       	  
-        	arr=to.split('>');//注split可以用字符或字符串分割
+        	arr=to.split('@');//注split可以用字符或字符串分割
         	//alert(arr[0]);
             var config = this._find('name',arr[0]);
             if (!config) {
@@ -287,7 +287,7 @@ function xuanran(list,oneData){
 	.next().text("￥"+oneData.price+"元")
 	.next().text("原价: 40 元");
 	list.attr('alias',oneData.alias);
-	list.find("#updateGoods").attr("href","javascript:window.pageManager.go('agoods>"+oneData.alias+"');");
+	list.find("#updateGoods").attr("href","javascript:window.pageManager.go('agoods@"+oneData.alias+"');");
 	var $toast = $('#toast');
 	list.find("#delGoods").on('click',function(){
 		
@@ -326,7 +326,7 @@ function mylocal(num)
 	  str=url
 	var arr=new Array();     
 	  
-	arr=str.split('>');//注split可以用字符或字符串分割
+	arr=str.split('@');//注split可以用字符或字符串分割
 	return arr[num];
 }
 function buybus()
@@ -413,7 +413,7 @@ function buybus_xuanran()
 				function() {
 					$.getJSON('./json.jsp?pages=Orders&&buy=w',function(data){
 						//if(data[0]!=0)
-					window.pageManager.go('aorder>'+data[0]);
+					window.pageManager.go('aorder@'+data[0]);
 				});
 				});
 		});
@@ -466,7 +466,7 @@ function orders()
 						'click',
 						function() {
 							self=$(this);
-							window.pageManager.go("aorder>"+self.parent().parent().find("#orders_num").text());
+							window.pageManager.go("aorder@"+self.parent().parent().find("#orders_num").text());
 						});
 			 del.on(
 						'click',

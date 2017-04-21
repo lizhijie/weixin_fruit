@@ -43,7 +43,7 @@ $(function () {
         go: function (to) {
         	var arr=new Array();     
       	  
-        	arr=to.split('>');//注split可以用字符或字符串分割
+        	arr=to.split('@');//注split可以用字符或字符串分割
         	//alert(arr[0]);
             var config = this._find('name',arr[0]);
             if (!config) {
@@ -263,7 +263,7 @@ function agoods()
 	$('#per').next().text(data.about);
 	$('#des').next().text(data.desxml);
 	$('#img_des').attr("src","./file.jsp?pages=File&&getimg="+data.alias+"-des.jpg");
-	$('#agoodsbutton').attr("href","javascript:window.pageManager.go('buybus>"+data.alias+"');");
+	$('#agoodsbutton').attr("href","javascript:window.pageManager.go('buybus@"+data.alias+"');");
 	});
 }
 
@@ -288,7 +288,7 @@ function xuanran(list,oneData){
 	list.find("#price").text("现价")
 	.next().text("￥"+oneData.price+"元")
 	.next().text("原价: 40 元");
-	list.attr("href","javascript:window.pageManager.go('agoods>"+oneData.alias+"');");
+	list.attr("href","javascript:window.pageManager.go('agoods@"+oneData.alias+"');");
 	return list;
 }
 function mylocal(num)
@@ -299,7 +299,7 @@ function mylocal(num)
 	  str=url
 	var arr=new Array();     
 	  
-	arr=str.split('>');//注split可以用字符或字符串分割
+	arr=str.split('@');//注split可以用字符或字符串分割
 	return arr[num];
 }
 function buybus()
@@ -386,7 +386,7 @@ function buybus_xuanran()
 				function() {
 					$.getJSON('./json.jsp?pages=Orders&&buy=w',function(data){
 						//if(data[0]!=0)
-					window.pageManager.go('aorder>'+data[0]);
+					window.pageManager.go('aorder@'+data[0]);
 				});
 				});
 		});
@@ -445,7 +445,7 @@ function orders()
 						'click',
 						function() {
 							self=$(this);
-							window.pageManager.go("aorder>"+self.parent().parent().find("#orders_num").text());
+							window.pageManager.go("aorder@"+self.parent().parent().find("#orders_num").text());
 						});
 			 del.on(
 						'click',

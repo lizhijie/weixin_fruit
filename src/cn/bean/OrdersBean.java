@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 
 import cn.business.Shop;
 import cn.data.table.Orders;
+import cn.debug.MyDebug;
 
 public class OrdersBean extends Bean {
 
@@ -32,15 +33,20 @@ public class OrdersBean extends Bean {
 		String buy=request.getParameter("buy");
 		String ordersNum=request.getParameter("num");
 		String sta=request.getParameter("status");
+		String theOpt=request.getParameter("opt");
 		if(str==null)
 			str="0";
 		if(sta==null)
 			sta="0";
+		if(theOpt==null)
+			theOpt="0";
 		int status=Integer.parseInt(sta);
+		int opt=Integer.parseInt(theOpt);
 		int num=Integer.parseInt(str);
 		if(ordersNum==null)
 			ordersNum="0";
 		int myNum=Integer.parseInt(ordersNum);
+		MyDebug.println(this, opt+"--------"+myNum);
 		if(updateAddress!=null)
 		{
 			int a[]={0};
@@ -54,6 +60,13 @@ public class OrdersBean extends Bean {
 				if(h>0)a[0]=h;
 			}
 			setJson(gson.toJson(a));
+		}
+		else if(opt!=0&&myNum!=0)
+		{
+		int h=shop.statusPlus(myNum);
+		int a[]={0};
+		if(h>0)a[0]=h;
+		setJson(gson.toJson(a));
 		}
 		else if(num!=0)
 		{

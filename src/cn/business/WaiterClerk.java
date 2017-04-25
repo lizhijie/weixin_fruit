@@ -260,6 +260,11 @@ public class WaiterClerk extends Clerk {
 		for (int i = 0; i < obj.size(); i++)
 			cool.add((Cool) obj.get(i));
 		int i=cool.get(0).getStatus();
-		return 0;
+		Cool condition = new Cool();
+		Cool sqlSet = new Cool();
+		condition.setNum(num);
+		sqlSet.setStatus(i+1);
+		i=safeClerk.getDataBase().update(condition, sqlSet);
+		return i;
 	}
 }

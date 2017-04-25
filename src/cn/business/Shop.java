@@ -170,4 +170,8 @@ public class Shop {
 		// TODO Auto-generated method stub
 		
 	}
+	public int statusPlus(int num){
+		
+		return waiter.statusPlus(num);
+	}
 }

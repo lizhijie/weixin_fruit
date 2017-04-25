@@ -481,6 +481,11 @@ function aorder(){
 		{
 		case 1:
 			sta="待付款";
+			$("#aorder_next").on('click', function(){
+				$.getJSON('./json.jsp?pages=Orders&&opt=1&&num='+mylocal(1), function(bool){
+	            	alert(bool);
+				});
+			});
 		  break;
 		case 2:
 			sta="待发货";
@@ -524,31 +529,7 @@ function aorder(){
         var $androidMask = $address.find('.weui-mask');
         var $add_input = $('#add_input');
         
-        $("#aorder_next").on('click', function(){
-        	var aorder_status=$("#aorder_status").attr('status')*1;
-        	if(aorder_status==1)
-        	{
-        		
-        	}
-        	else if(aorder_status==2)
-        	{
-        		
-        	}
-        	else  if(aorder_status==3)
-        	{
-        		
-        	}
-        	else  if(aorder_status==4)
-        	{
-        		
-        	}
-        	else
-        	{
-        		
-        	}
-        		alert(aorder_status);
-        	//$.getJSON('./json.jsp?pages=Orders&&num='+mylocal(1)+'&&status=', function(bigvalue){});
-        });	
+        
         $("#change_address").on('click', function(){
         	recname=$("#aorder_recname").text();
    		 recnum=$("#aorder_recnum").text();

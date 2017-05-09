@@ -563,3 +563,6 @@ background-color: white;
 .weui-navbar {
 	position:relative;
 }
+#default_button{
+	float:right;
+}

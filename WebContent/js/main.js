@@ -429,6 +429,8 @@ function orders()
 			 //alert(num);
 			 //alert(value[0].name);
 			 f=one_orders.clone();
+			 if(value[0].status>1)
+			f.find("#orders_del").hide();
 			 f.find("#orders_num").text(num);
 			 var result=0;
 			 for(var i = 0;i < value.length; i++) {
@@ -483,17 +485,39 @@ function aorder(){
 			sta="待付款";
 			$("#aorder_next").on('click', function(){
 				$.getJSON('./json.jsp?pages=Orders&&opt=1&&num='+mylocal(1), function(bool){
-	            	alert(bool);
+	            	//alert(bool);
+	            	if(pay_check(mylocal(1)))
+	            		{
+						alert("pay ok");
+						$("#aorder_next").unbind();
+						aorder();
+	            		}
+					else 
+						alert("pay fail");
 				});
 			});
 		  break;
 		case 2:
 			sta="待发货";
 			$("#aorder_next").text('催单');
+			$("#aorder_next").on('click', function(){
+			alert("商家已收到通知");
+			});
 		  break;
 		case 3:
 			sta="已发货";
 			$("#aorder_next").text('确认收货');
+			$("#aorder_next").on('click', function(){
+				$.getJSON('./json.jsp?pages=Orders&&opt=1&&num='+mylocal(1), function(bool){
+	            	if(bool*1==1)
+	            		{
+	            		alert("确认收获成功");
+	            		aorder();
+	            		}
+	            	else
+	            		alert("服务器无响应");
+				});
+			});
 		  break;
 		case 4:
 			sta="已完成";
@@ -612,4 +636,18 @@ function bar(bar_name)
 	$("#"+bar_name).addClass('weui-bar__item_on').siblings(
 	'.weui-bar__item_on').removeClass(
 	'weui-bar__item_on');	
+}
+function  pay_check(num)
+{
+	$.ajaxSettings.async = false;
+	var a=0;
+	$.getJSON('./json.jsp?pages=Orders&&num='+mylocal(1), function(bigvalue){
+		value=bigvalue[0];
+		cool=bigvalue[1];
+		 a=parseInt(cool[0].status)*1;
+		//alert(a);
+	});
+	$.ajaxSettings.async = true;
+	if(a==2)
+		return true
 }

@@ -413,27 +413,7 @@ aorder();
     </div>
 </div>
 
-<div class="weui-cells__title">商家留言</div>
-  <div class="weui-form-preview__item">
-                    <label class="weui-form-preview__label"><span>你的货物已经到达</span></label>
-                    <span class="weui-form-preview__value"><span id="aorder_recnum">17-06-03 15:20</span></span>
-               	</div>
-   <div class="weui-form-preview__item">
-                    <label class="weui-form-preview__label"><span>你的货物已经到达</span></label>
-                    <span class="weui-form-preview__value"><span id="aorder_recnum">17-06-03 15:20</span></span>
-               	</div>
-   <div class="weui-form-preview__item">
-                    <label class="weui-form-preview__label"><span>你的货物已经到达</span></label>
-                    <span class="weui-form-preview__value"><span id="aorder_recnum">17-06-03 15:20</span></span>
-               	</div>
-   <div class="weui-form-preview__item">
-                    <label class="weui-form-preview__label"><span>你的货物已经到达</span></label>
-                    <span class="weui-form-preview__value"><span id="aorder_recnum">17-06-03 15:20</span></span>
-               	</div>
-   <div class="weui-form-preview__item">
-                    <label class="weui-form-preview__label"><span>你的货物已经到达</span></label>
-                    <span class="weui-form-preview__value"><span id="aorder_recnum">17-06-03 15:20</span></span>
-               	</div>
+
 </div>
 <script type="text/javascript">
 mine();

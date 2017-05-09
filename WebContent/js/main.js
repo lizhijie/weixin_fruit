@@ -490,7 +490,7 @@ function aorder(){
 	            		{
 						alert("pay ok");
 						$("#aorder_next").unbind();
-						aorder();
+						  window.pageManager.go('aorder@'+mylocal(1)+'@');	
 	            		}
 					else 
 						alert("pay fail");

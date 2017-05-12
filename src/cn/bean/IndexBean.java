@@ -69,14 +69,14 @@ public class IndexBean extends Bean {
 		}
 		//MyDebug.println(this,"lizhijie");
 		//long startTime = System.currentTimeMillis();
-		//long endTime = System.currentTimeMillis();MyDebug.println(this,"³ÌĞòÔËĞĞÊ±¼ä£º"+(endTime-startTime)+"ms");
+		//long endTime = System.currentTimeMillis();MyDebug.println(this,"ç¨‹åºè¿è¡Œæ—¶é—´ï¼š"+(endTime-startTime)+"ms");
 	}
 
 	public String getUserName() {
 		if(userName!=null)
 			if(userName!="")
 				return userName;
-		return "Î´ÉèÖÃ";
+		return "æœªè®¾ç½®";
 		
 	}
 

@@ -13,14 +13,14 @@ ArrayList<Method> setMethods;
 Class c;
 public DataReflect(Object object){
 	c = object.getClass();
-	// µÃµ½¶ÔÏóÖĞËùÓĞµÄ·½·¨
+	// å¾—åˆ°å¯¹è±¡ä¸­æ‰€æœ‰çš„æ–¹æ³•
 	Method[] methods = c.getMethods();
 	setMethods = new ArrayList<Method>();
-	// µÃµ½¶ÔÏóÖĞËùÓĞµÄÊôĞÔ
+	// å¾—åˆ°å¯¹è±¡ä¸­æ‰€æœ‰çš„å±æ€§
 	Field[] fields = c.getFields();
-	// µÃµ½¶ÔÏóÀàµÄÃû×Ö
+	// å¾—åˆ°å¯¹è±¡ç±»çš„åå­—
 	String cName = c.getName();
-	// ´ÓÀàµÄÃû×ÖÖĞ½âÎö³ö±íÃû
+	// ä»ç±»çš„åå­—ä¸­è§£æå‡ºè¡¨å
 	tableName = cName.substring(cName.lastIndexOf(".") + 1,
 			cName.length()).toLowerCase();
 	mList = new ArrayList<String>();

@@ -39,7 +39,7 @@ public class ShowClerk extends Clerk {
 		// long startTime = System.currentTimeMillis();
 		ret = safeClerk.getDataBase().find(new Goods(), col);
 		// long endTime =
-		// System.currentTimeMillis();MyDebug.println(this,"³ÌĞòÔËĞĞÊ±¼ä£º"+(endTime-startTime)+"ms");
+		// System.currentTimeMillis();MyDebug.println(this,"ç¨‹åºè¿è¡Œæ—¶é—´ï¼š"+(endTime-startTime)+"ms");
 		try {
 			ob = safeClerk.getDataBase().retTo(new Goods(), ret);
 			for (int i = 0; i < ob.size(); i++)
@@ -70,7 +70,7 @@ public class ShowClerk extends Clerk {
 		col.setAbout("1");
 		ret = safeClerk.getDataBase().find(condi, col);
 		// long endTime =
-		// System.currentTimeMillis();MyDebug.println(this,"³ÌĞòÔËĞĞÊ±¼ä£º"+(endTime-startTime)+"ms");
+		// System.currentTimeMillis();MyDebug.println(this,"ç¨‹åºè¿è¡Œæ—¶é—´ï¼š"+(endTime-startTime)+"ms");
 		try {
 			ob = safeClerk.getDataBase().retTo(new Goods(), ret);
 			for (int i = 0; i < ob.size(); i++)
@@ -183,7 +183,7 @@ public class ShowClerk extends Clerk {
 			e1.printStackTrace();
 		}
 		for(int i=0;i<receivers.size();i++)
-		MyDebug.println(this,"²éÑ¯ÊÕ»ñµØÖ·½á¹ûÎª"+receivers.get(i).getRecaddress());	
+		MyDebug.println(this,"æŸ¥è¯¢æ”¶è·åœ°å€ç»“æœä¸º"+receivers.get(i).getRecaddress());	
 		return receivers;
 		
 	}

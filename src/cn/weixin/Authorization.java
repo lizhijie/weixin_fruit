@@ -79,7 +79,7 @@ public void setScope(String scope) {
 
 
 	public Authorization(String code) {
-        //·¢ËÍ GET ÇëÇó
+        //å‘é€ GET è¯·æ±‚
         String s=HttpRequest.sendGet("https://api.weixin.qq.com/sns/oauth2/access_token", "appid=wx778e2410cfa1d2c9&secret=d0681fd3fcab27013cd72e3da7758666&code="+code+"&grant_type=authorization_code");
        
         this.setAccess_token(parseData(s).get("access_token"));
@@ -89,7 +89,7 @@ public void setScope(String scope) {
         this.setScope(parseData(s).get("scope"));
         //System.out.println(parseData(s).get("openid"));
         
-        //·¢ËÍ POST ÇëÇó
+        //å‘é€ POST è¯·æ±‚
        //String sr=HttpRequest.sendPost("http://localhost:8080/weixin", "key=123&v=456");
        //System.out.println(sr);
 	}

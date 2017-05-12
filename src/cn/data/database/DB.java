@@ -25,8 +25,8 @@ public class DB {
     public PreparedStatement pst = null;  
     public boolean connect() {  
         try {  
-            Class.forName(name);//指定连接类型  
-            conn = DriverManager.getConnection(url, user, password);//获取连接
+            Class.forName(name);//鎸囧畾杩炴帴绫诲瀷  
+            conn = DriverManager.getConnection(url, user, password);//鑾峰彇杩炴帴
             if(conn==null)
             	return false;
             else

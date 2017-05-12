@@ -18,7 +18,7 @@ public class LowFile implements MyFile{
 		// TODO Auto-generated method stub
 		fileName=fileSrc+fileName;
 		File file = new File(fileName);
-		//MyDebug.println(this,"Â·¾¶ÊÇ+"+file.getAbsolutePath());
+		//MyDebug.println(this,"è·¯å¾„æ˜¯+"+file.getAbsolutePath());
 	        InputStream in = null;
 	        try {
 	            
@@ -67,7 +67,7 @@ public class LowFile implements MyFile{
 		// TODO Auto-generated method stub
 		boolean  flag = false;  
 		   File file = new File(getSrc()+fileName);  
-		    // Â·¾¶ÎªÎÄ¼şÇÒ²»Îª¿ÕÔò½øĞĞÉ¾³ı  
+		    // è·¯å¾„ä¸ºæ–‡ä»¶ä¸”ä¸ä¸ºç©ºåˆ™è¿›è¡Œåˆ é™¤  
 		    if (file.isFile() && file.exists()) {  
 		        file.delete();  
 		        flag = true;  
@@ -86,22 +86,22 @@ public class LowFile implements MyFile{
 	}
 
 	public boolean rename(String oldname,String newname){ 
-        if(!oldname.equals(newname)){//ĞÂµÄÎÄ¼şÃûºÍÒÔÇ°ÎÄ¼şÃû²»Í¬Ê±,²ÅÓĞ±ØÒª½øĞĞÖØÃüÃû 
+        if(!oldname.equals(newname)){//æ–°çš„æ–‡ä»¶åå’Œä»¥å‰æ–‡ä»¶åä¸åŒæ—¶,æ‰æœ‰å¿…è¦è¿›è¡Œé‡å‘½å 
             File oldfile=new File(getSrc()+oldname); 
             File newfile=new File(getSrc()+newname); 
             if(!oldfile.exists()){
-                return false;//ÖØÃüÃûÎÄ¼ş²»´æÔÚ
+                return false;//é‡å‘½åæ–‡ä»¶ä¸å­˜åœ¨
             }
-            if(newfile.exists())//ÈôÔÚ¸ÃÄ¿Â¼ÏÂÒÑ¾­ÓĞÒ»¸öÎÄ¼şºÍĞÂÎÄ¼şÃûÏàÍ¬£¬Ôò²»ÔÊĞíÖØÃüÃû 
+            if(newfile.exists())//è‹¥åœ¨è¯¥ç›®å½•ä¸‹å·²ç»æœ‰ä¸€ä¸ªæ–‡ä»¶å’Œæ–°æ–‡ä»¶åç›¸åŒï¼Œåˆ™ä¸å…è®¸é‡å‘½å 
             {
-                MyDebug.println(this,newname+"ÒÑ¾­´æÔÚ£¡"); 
+                MyDebug.println(this,newname+"å·²ç»å­˜åœ¨ï¼"); 
             return false;
             }
             else{ 
                 return oldfile.renameTo(newfile); 
             } 
         }else{
-            MyDebug.println(this,"ĞÂÎÄ¼şÃûºÍ¾ÉÎÄ¼şÃûÏàÍ¬...");
+            MyDebug.println(this,"æ–°æ–‡ä»¶åå’Œæ—§æ–‡ä»¶åç›¸åŒ...");
             return false;
         }
     }

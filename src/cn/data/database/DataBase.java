@@ -34,9 +34,9 @@ public class DataBase {
 		return i;
 	}
 	public int insert(Object object) {
-		// ¶¨ÒåÒ»¸ösql×Ö·û´®
+		// å®šä¹‰ä¸€ä¸ªsqlå­—ç¬¦ä¸²
 		String sql = "insert into ";
-		// µÃµ½¶ÔÏóµÄÀà
+		// å¾—åˆ°å¯¹è±¡çš„ç±»
 		DataReflect refl=new DataReflect(object);
 		String tableName=refl.getTableName();
 		List<String> mList=refl.getmList();
@@ -78,7 +78,7 @@ public class DataBase {
 		if(status){
 		try {
 
-			PreparedStatement pst = conn.prepareStatement(sql);// ×¼±¸Ö´ĞĞÓï¾ä
+			PreparedStatement pst = conn.prepareStatement(sql);// å‡†å¤‡æ‰§è¡Œè¯­å¥
 			return pst.executeQuery();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -115,7 +115,7 @@ public class DataBase {
 
 	public String where(Object object) {
 		String sql = " where";
-		// µÃµ½¶ÔÏóµÄÀà
+		// å¾—åˆ°å¯¹è±¡çš„ç±»
 		DataReflect refl=new DataReflect(object);
 		String tableName=refl.getTableName();
 		List<String> mList=refl.getmList();
@@ -142,7 +142,7 @@ public class DataBase {
 
 	public String set(Object object) {
 		String sql = " set";
-		// µÃµ½¶ÔÏóµÄÀà
+		// å¾—åˆ°å¯¹è±¡çš„ç±»
 		DataReflect refl=new DataReflect(object);
 		String tableName=refl.getTableName();
 		List<String> mList=refl.getmList();
@@ -169,7 +169,7 @@ public class DataBase {
 
 	public String column(Object object) {
 		String sql = "";
-		// µÃµ½¶ÔÏóµÄÀà
+		// å¾—åˆ°å¯¹è±¡çš„ç±»
 		DataReflect refl=new DataReflect(object);
 		String tableName=refl.getTableName();
 		List<String> mList=refl.getmList();

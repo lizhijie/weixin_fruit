@@ -25,7 +25,7 @@ public class WeixinBean extends Bean {
 	String t=ms.getFromUserName();
 	ms.setFromUserName(ms.getToUserName());
 	ms.setToUserName(t);
-	//ms.setContent("ÀîÖ¾½Ü");
+	//ms.setContent("æå¿—æ°");
 	Date date=new Date();
 	DateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	  String str=format.format(date);

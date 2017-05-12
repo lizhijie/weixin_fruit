@@ -50,7 +50,7 @@ public class FileBean extends Bean {
 //			
 			
 //			byte[] b = new byte[in.available()];
-//			in.read(b); //首先把in的内容读到字节数组b里面
+//			in.read(b); //棣栧厛鎶奿n鐨勫唴瀹硅鍒板瓧鑺傛暟缁刡閲岄潰
 //			response.getOutputStream().write(b);
 			
 			

@@ -33,11 +33,11 @@ public class Control {
 		}
 		  @SuppressWarnings("rawtypes")
 		Class[] parameterTypes={HttpServletRequest.class,HttpServletResponse.class};   
-		//¸ù¾İ²ÎÊıÀàĞÍ»ñÈ¡ÏàÓ¦µÄ¹¹Ôìº¯Êı  
+		//æ ¹æ®å‚æ•°ç±»å‹è·å–ç›¸åº”çš„æ„é€ å‡½æ•°  
 		  Constructor<?> constructor=c.getConstructor(parameterTypes);  
-		//²ÎÊıÊı×é  
+		//å‚æ•°æ•°ç»„  
 		  Object[] parameters={request,response};  
-		//¸ù¾İ»ñÈ¡µÄ¹¹Ôìº¯ÊıºÍ²ÎÊı£¬´´½¨ÊµÀı  
+		//æ ¹æ®è·å–çš„æ„é€ å‡½æ•°å’Œå‚æ•°ï¼Œåˆ›å»ºå®ä¾‹  
 		  this.bean=(Bean) constructor.newInstance(parameters); 
 }
 }

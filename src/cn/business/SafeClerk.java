@@ -135,9 +135,9 @@ public class SafeClerk extends Clerk {
 		i=this.getDataBase().insert(user);
 		Receiver receiver=new Receiver();
 		receiver.setWeixin(userId);
-		receiver.setRecname("ÎÞ");
-		receiver.setRecnum("ÎÞ");
-		receiver.setRecaddress("ÎÞ");
+		receiver.setRecname("æ— ");
+		receiver.setRecnum("æ— ");
+		receiver.setRecaddress("æ— ");
 		int k=0;
 		k=this.getDataBase().insert(receiver);
 		if(i>0&&k>0)

@@ -24,7 +24,18 @@ public void go()
 	String passwd=request.getParameter("passwd");
 	String creatUser=request.getParameter("creatUser");
 	String logout=request.getParameter("logout");
-	if(logout!=null)
+	String register=request.getParameter("register");
+	if(register!=null)
+	{
+		String userId=null;
+		userId=login();
+		MyDebug.println(this, userId);
+		if(userId.trim().contentEquals("guest"))
+			userId=null;
+		int i=SafeClerk.creatWebUser(userId, loginName, passwd);
+		setJson(i+"");
+	}
+	else if(logout!=null)
 	{
 		HttpSession session = request.getSession();
 		session.removeAttribute("userId");

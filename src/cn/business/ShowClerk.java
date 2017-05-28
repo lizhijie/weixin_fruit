@@ -183,7 +183,18 @@ public class ShowClerk extends Clerk {
 			e1.printStackTrace();
 		}
 		for(int i=0;i<receivers.size();i++)
-		MyDebug.println(this,"查询收获地址结果为"+receivers.get(i).getRecaddress());	
+		MyDebug.println(this,"查询收获地址结果为"+receivers.get(i).getRecaddress());
+		if(receivers.size()<1)
+		{
+			Receiver receiver=new Receiver();
+			receiver.setWeixin(safeClerk.userId);
+			receiver.setRecname("");
+			receiver.setRecnum("");
+			receiver.setRecaddress("");
+			receivers.add(receiver);
+			int k=0;
+			k=safeClerk.getDataBase().insert(receiver);
+		}
 		return receivers;
 		
 	}

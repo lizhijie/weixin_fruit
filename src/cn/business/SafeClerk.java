@@ -137,9 +137,9 @@ public class SafeClerk extends Clerk {
 		i=this.getDataBase().insert(user);
 		Receiver receiver=new Receiver();
 		receiver.setWeixin(userId);
-		receiver.setRecname("无");
-		receiver.setRecnum("无");
-		receiver.setRecaddress("无");
+		receiver.setRecname("");
+		receiver.setRecnum("");
+		receiver.setRecaddress("");
 		int k=0;
 		k=this.getDataBase().insert(receiver);
 		if(i>0&&k>0)
@@ -147,9 +147,65 @@ public class SafeClerk extends Clerk {
 		return false;
 	}
 
-	public static boolean creatWebUser(String creatUser,String loginName,String passwd)
+	public static int creatWebUser(String creatUser,String loginName,String passwd)
 	{
-		return true;
+		User user=new User();
+		User condition=new User();
+		User sqlSet=new User();
+		SafeClerk little=new SafeClerk();
+		String weixin=webLoginchange(loginName,null);
+		String weixincode=webLoginchange(loginName,passwd);
+		
+		if(creatUser==null)
+			creatUser="";
+		if((!(creatUser.trim().contentEquals("")))&&creatUser.trim().length()>20)
+		{
+			if(weixin==null)
+			{
+				condition.setWeixin(creatUser);
+				sqlSet.setUsername(loginName);
+				sqlSet.setMd5(passwd);
+				little.getDataBase().update(condition, sqlSet);
+				return 1;//网页用户不存在新建网页用户并绑定微信
+			}
+			else if(weixincode==null)
+			{
+				return -1;//网页账户密码不正确无法绑定
+			}
+			else
+			{
+				condition.setWeixin(creatUser);
+				sqlSet.setUsername(loginName);
+				sqlSet.setMd5(passwd);
+				little.getDataBase().update(condition, sqlSet);
+				condition=new User();
+				sqlSet=new User();
+				condition.setUsername(loginName);
+				condition.setMd5(passwd);
+				sqlSet.setWeixin(creatUser);
+				little.getDataBase().update(condition, sqlSet);
+				return 2;//绑定成功
+			}
+		}
+		else
+		{
+			if(weixin==null)
+			{
+				user.setUsername(loginName);
+				user.setMd5(passwd);
+				user.setStatus(1);
+				user.setWeixin(System.currentTimeMillis()+getRandomString(5));
+				user.setTime(scanTime());
+			int i=little.getDataBase().insert(user);
+			if(i>0)
+			return 3;//网页注册成功
+			}
+			else
+			{
+				return -2;//网页注册失败用户已存在
+			}
+		}
+		return -3;
 	}
 	public static String  webLoginchange(String loginName,String passwd)
 	{

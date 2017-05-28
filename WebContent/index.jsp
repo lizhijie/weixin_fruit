@@ -415,6 +415,8 @@ aorder();
 </div>
 <a href="./index.jsp#login"><p
 						class="weui-media-box__desc">退出登陆</p></a>
+<a href="./index.jsp#register"><p
+						class="weui-media-box__desc">绑定web账户</p></a>
 
 </div>
 
@@ -506,14 +508,102 @@ mine();
             	<input class="weui-btn weui-btn_primary" id="showTooltips" value="登陆" type="submit">
         </div>
     </form>
-    
+    <a href="./index.jsp#register"><p
+						class="weui-media-box__desc">还没有帐号,点我注册一个吧</p></a>
 </div>
 <script type="text/javascript">
 login();
 </script>
 </script>  
     
+  
+  
+  
+  
+  
+  
+  <script type="text/html" id="tpl_register">
+<div class="page input js_show login">
+    <div class="page__hd">
+        <h1 class="page__title">水果小店注册</h1>
+        <p class="page__desc">web帐号申请绑定</p>
+    </div>
+<form class="page__bd" action="./json.jsp?pages=WebLogin&register=1"  method="post">
+        
+        
+        
+        
+
+        
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">帐号</label></div>
+                <div class="weui-cell__bd">
+                    <input placeholder="请输入帐号" class="weui-input" type="text" name="loginName">
+                </div>
+            </div>
+
+<div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">密码</label></div>
+                <div class="weui-cell__bd">
+                    <input placeholder="请输入密码" class="weui-input" type="password" name="passwd">
+                </div>
+            </div>
+            
+            
+            
+            <div class="weui-cell weui-cell_vcode">
+                <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入验证码" type="number">
+                </div>
+                <div class="weui-cell__ft">
+                    <img class="weui-vcode-img" src="./images/vcode.jpg">
+                </div>
+            </div>
+        </div>
+        
+
+        
+        
+
+
+        <div class="weui-cells__title">选项</div>
+        <div class="weui-cells weui-cells_form">
+            
+            <div class="weui-cell weui-cell_switch">
+                <div class="weui-cell__bd">激活</div>
+                <div class="weui-cell__ft">
+                    <label for="switchCP" class="weui-switch-cp">
+                        <input id="switchCP" class="weui-switch-cp__input" checked="checked" type="checkbox">
+                        <div class="weui-switch-cp__box"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        
+        
+
+        
+        
+
+        
+        
+        
+        
+
+        
+
+   		<div class="weui-btn-area">
+            	<input class="weui-btn weui-btn_primary" id="showTooltips" value="注册绑定" type="submit">
+        </div>
+    </form>
     
+</div>
+<script type="text/javascript">
+</script>
+</script>    
     
     
     

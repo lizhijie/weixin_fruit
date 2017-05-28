@@ -24,7 +24,9 @@ public class SafeClerk extends Clerk {
 			register();
 		
 	}
-
+	
+	public SafeClerk() {
+	}
 	
 	protected DataBase getDataBase()
 	{
@@ -145,7 +147,35 @@ public class SafeClerk extends Clerk {
 		return false;
 	}
 
-
+	public static boolean creatWebUser(String creatUser,String loginName,String passwd)
+	{
+		return true;
+	}
+	public static String  webLoginchange(String loginName,String passwd)
+	{
+		ArrayList<Object> userList=new ArrayList<Object> ();
+		User condition=new User();
+		User col=new User();
+		SafeClerk little=new SafeClerk();
+		col.setWeixin("1");
+		condition.setUsername(loginName);
+		condition.setMd5(passwd);
+		try {
+			userList=little.getDataBase().retTo(col,little.getDataBase().find(condition, col));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(userList.size()>0)
+		{
+			String weixin=((User)(userList.get(0))).getWeixin();
+			return weixin;
+		}
+		return null;
+	}
 	public String getUserName() {
 		return userName;
 	}

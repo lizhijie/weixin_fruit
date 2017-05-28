@@ -19,10 +19,10 @@
     <link rel="stylesheet" href="./style/main.css"/>
 </head>
 <body ontouchstart>
+
     <div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
 
     <div class="container" id="container"></div>
-
     <script type="text/html" id="tpl_footer">
 <div class="page__ft">
 
@@ -64,7 +64,10 @@ var id = $(this).data('id');
 <script type="text/html" id="tpl_home">
 <div class="page__bd">
 		<div class="weui-panel weui-panel_access">
-			<div class="weui-panel__hd">水果天地</div>
+			<div class="weui-panel__hd">水果天地<a href="json.jsp?pages=Orders&&buy=w"><p
+						class="weui-media-box__desc">你好, ${index.bean.userName}</p></a>
+
+</div>
 			<div id="palist" hidden="hidden" class="weui-panel__bd">
 
 				<a id="list" href="javascript:;"
@@ -86,8 +89,6 @@ var id = $(this).data('id');
 
 				</a>
 			</div>
-<a href="json.jsp?pages=Orders&&buy=w"><p
-						class="weui-media-box__desc">用户名: ${index.bean.userName}</p></a>
 		</div>
 </div>
 <script type="text/javascript">
@@ -412,11 +413,103 @@ aorder();
         </div>
     </div>
 </div>
-
+<a href="./index.jsp#login"><p
+						class="weui-media-box__desc">退出登陆</p></a>
 
 </div>
+
+
 <script type="text/javascript">
 mine();
+</script>
+</script>  
+    
+    
+       
+    
+    
+    
+<script type="text/html" id="tpl_login">
+<div class="page input js_show login">
+    <div class="page__hd">
+        <h1 class="page__title">水果小店登陆</h1>
+        <p class="page__desc">web登陆</p>
+    </div>
+<form class="page__bd" action="./json.jsp?pages=WebLogin"  method="post">
+        
+        
+        
+        
+
+        
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">帐号</label></div>
+                <div class="weui-cell__bd">
+                    <input placeholder="请输入帐号" class="weui-input" type="text" name="loginName">
+                </div>
+            </div>
+
+<div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">密码</label></div>
+                <div class="weui-cell__bd">
+                    <input placeholder="请输入密码" class="weui-input" type="password" name="passwd">
+                </div>
+            </div>
+            
+            
+            
+            <div class="weui-cell weui-cell_vcode">
+                <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入验证码" type="number">
+                </div>
+                <div class="weui-cell__ft">
+                    <img class="weui-vcode-img" src="./images/vcode.jpg">
+                </div>
+            </div>
+        </div>
+        
+
+        
+        
+
+
+        <div class="weui-cells__title">选项</div>
+        <div class="weui-cells weui-cells_form">
+            
+            <div class="weui-cell weui-cell_switch">
+                <div class="weui-cell__bd">保持登陆</div>
+                <div class="weui-cell__ft">
+                    <label for="switchCP" class="weui-switch-cp">
+                        <input id="switchCP" class="weui-switch-cp__input" checked="checked" type="checkbox">
+                        <div class="weui-switch-cp__box"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        
+        
+
+        
+        
+
+        
+        
+        
+        
+
+        
+
+   		<div class="weui-btn-area">
+            	<input class="weui-btn weui-btn_primary" id="showTooltips" value="登陆" type="submit">
+        </div>
+    </form>
+    
+</div>
+<script type="text/javascript">
+login();
 </script>
 </script>  
     
@@ -427,6 +520,9 @@ mine();
     <script src="./js/zepto.min.js"></script>
     <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script src="./js/main.js"></script>
+    <script type="text/javascript" >
+checkUser(" ${index.bean.userName}");
+	</script>
 </body>
 </html>
 <%

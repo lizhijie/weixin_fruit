@@ -74,6 +74,36 @@ public class Bean {
 		this.json = json;
 	}
 
+	public void fly(String entry,String pages,boolean forward)
+	{
+		String pages_head="";
+		if(pages!=null)
+			pages_head="?pages=";
+			else
+				pages="";
+		String url="/"+entry+pages_head+pages;
+		if(forward)
+		{
+		try {
+			request.getRequestDispatcher(url).forward(request,response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		else
+		{
+			try {
+				response.sendRedirect("."+url);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	public String login() {
 		HttpSession session = request.getSession();
 		Object obj = session.getAttribute("userId");
@@ -92,7 +122,7 @@ public class Bean {
 			MyDebug.println(this,"new" + userId);
 			return userId;
 		}
-		userId="Guest";
+ userId="guest";
 		return userId;
 	}
 

@@ -651,3 +651,15 @@ function  pay_check(num)
 	if(a==2)
 		return true
 }
+function login()
+{
+	$.getJSON('./json.jsp?pages=WebLogin&&logout=1', function(text){
+		
+	});
+}
+function checkUser(userName)
+{
+	userName=userName.replace(/(^\s*)|(\s*$)/g, "");
+	if(userName=="游客")
+	location.hash='login'
+}

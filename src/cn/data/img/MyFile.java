@@ -11,4 +11,5 @@ public boolean delete(String fileName);
 public void setSrc(String src);
 public String getSrc();
 public boolean rename(String oldname,String newname);
+public InputStream getVcode(String vcode);
 }

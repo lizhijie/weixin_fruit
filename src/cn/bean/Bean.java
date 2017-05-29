@@ -133,4 +133,12 @@ public class Bean {
 		MyDebug.println(this,request.getParameter("echostr"));
 	}
 
+	boolean check(String str)
+	{
+		if(str==null)
+			return false;
+		if(str.trim().contentEquals(""))
+		return false;
+		return true;
+	}
 }

@@ -464,10 +464,10 @@ mine();
             <div class="weui-cell weui-cell_vcode">
                 <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入验证码" type="number">
+                    <input class="weui-input" placeholder="请输入验证码" type="text" name="vcode">
                 </div>
                 <div class="weui-cell__ft">
-                    <img class="weui-vcode-img" src="./images/vcode.jpg">
+                    <img class="weui-vcode-img" src="./file.jsp?pages=File&getimg=vcode">
                 </div>
             </div>
         </div>
@@ -555,10 +555,10 @@ login();
             <div class="weui-cell weui-cell_vcode">
                 <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入验证码" type="number">
+                    <input class="weui-input" placeholder="请输入验证码" type="text" name="vcode">
                 </div>
                 <div class="weui-cell__ft">
-                    <img class="weui-vcode-img" src="./images/vcode.jpg">
+                    <img class="weui-vcode-img" src="./file.jsp?pages=File&getimg=vcode">
                 </div>
             </div>
         </div>

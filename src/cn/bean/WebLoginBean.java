@@ -22,10 +22,10 @@ public void go()
 	Gson gson = new Gson();
 	String loginName=request.getParameter("loginName");
 	String passwd=request.getParameter("passwd");
-	String creatUser=request.getParameter("creatUser");
 	String logout=request.getParameter("logout");
 	String register=request.getParameter("register");
-	if(register!=null)
+
+	if(register!=null&&check(loginName)&&check(passwd)&&checkVcode())
 	{
 		String userId=null;
 		userId=login();
@@ -37,14 +37,11 @@ public void go()
 	}
 	else if(logout!=null)
 	{
+		MyDebug.println(this,"li");
 		HttpSession session = request.getSession();
 		session.removeAttribute("userId");
 	}
-	else if(creatUser!=null&&loginName!=null&&passwd!=null)
-	{
-		SafeClerk.creatWebUser(creatUser, loginName, passwd);
-	}
-	else if(loginName!=null&&passwd!=null)
+	else if(check(loginName)&&check(passwd)&&checkVcode())
 	{
 		MyDebug.println(this,loginName);
 		MyDebug.println(this,passwd);
@@ -55,11 +52,28 @@ public void go()
 	session.setAttribute("userId", userId);
 	fly("index.jsp","Index",false);
 	}
+		
 	}
 	else
 	{
-	//setJson(gson.toJson(rec));
+	setJson("用户名或着密码不正确");
+	checkVcode();
 	}
 	
+}
+boolean checkVcode()
+{
+	String vcode=request.getParameter("vcode");
+	HttpSession sess = request.getSession();
+	Object ob=sess.getAttribute("vcode");
+	String localVcode=null;
+	if(ob!=null)
+	localVcode=ob.toString();
+	MyDebug.println(this, localVcode);
+	if(check(vcode)&&check(localVcode))
+		if(vcode.contentEquals(localVcode))
+			return true;
+	setJson("验证码错误");
+	return false;
 }
 }

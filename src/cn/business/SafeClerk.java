@@ -155,7 +155,6 @@ public class SafeClerk extends Clerk {
 		SafeClerk little=new SafeClerk();
 		String weixin=webLoginchange(loginName,null);
 		String weixincode=webLoginchange(loginName,passwd);
-		
 		if(creatUser==null)
 			creatUser="";
 		if((!(creatUser.trim().contentEquals("")))&&creatUser.trim().length()>20)

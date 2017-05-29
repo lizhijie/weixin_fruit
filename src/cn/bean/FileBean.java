@@ -2,10 +2,13 @@ package cn.bean;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import cn.business.SafeClerk;
 import cn.data.img.LowFile;
 import cn.data.img.MyFile;
 
@@ -38,8 +41,11 @@ public class FileBean extends Bean {
 					}
 					return;
 				}
-		
-		InputStream in=file.get(imgName);
+		InputStream in=null;
+		if(imgName.contentEquals("vcode"))
+		in=getVcode();
+		else
+		in=file.get(imgName);
 		int tempbyte;
 		try {
 			
@@ -64,5 +70,11 @@ public class FileBean extends Bean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
+	}
+ InputStream getVcode(){
+	String rand= SafeClerk.getRandomString(4);
+	HttpSession session = request.getSession();
+	session.setAttribute("vcode", rand);
+	return file.getVcode(rand);
 	}
 }
